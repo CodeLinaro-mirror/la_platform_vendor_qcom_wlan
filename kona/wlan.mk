@@ -6,15 +6,12 @@ PRODUCT_PACKAGES += wifilearner
 WIFI_HIDL_FEATURE_AWARE := true
 
 PRODUCT_COPY_FILES += \
-    device/qcom/wlan/msmnile/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
-				device/qcom/wlan/msmnile/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-				device/qcom/wlan/msmnile/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-				device/qcom/wlan/msmnile/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
+    device/qcom/wlan/kona/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
+				device/qcom/wlan/kona/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+				device/qcom/wlan/kona/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+				device/qcom/wlan/kona/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
-
-# WLAN specific aosp flag
-TARGET_USES_AOSP_FOR_WLAN := false
 
 # Enable STA + SAP Concurrency.
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
