@@ -39,3 +39,10 @@ PRODUCT_PACKAGES += init.qti.wlan.sh
 PRODUCT_COPY_FILES += \
     device/qcom/wlan/sm6150_au/init.qti.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.wlan.sh
 endif
+
+# Override WLAN configurations
+# # Usage:
+# # To disable WLAN_CFG_1/WLAN_CFG_3 and enable WLAN_CFG_2 for <wlan_chip>
+# # (<wlan_chip> is from $TARGET_WLAN_CHIP).
+# #   WLAN_CFG_OVERRIDE_<wlan_chip> := WLAN_CFG_1=n WLAN_CFG_2=y WLAN_CFG_3=n
+WLAN_CFG_OVERRIDE_qcn7605 := CONFIG_IPA_OFFLOAD=y
