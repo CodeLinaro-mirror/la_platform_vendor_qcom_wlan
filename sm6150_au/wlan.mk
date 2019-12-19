@@ -40,6 +40,14 @@ PRODUCT_COPY_FILES += \
     device/qcom/wlan/sm6150_au/init.qti.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.wlan.sh
 endif
 
+ifeq ($(TARGET_USES_AOSP_FOR_WLAN), true)
+# Pure AOSP: Use pre-defined interface combinations with STA+SAP support
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+else
+# Value-added AOSP: STA + SAP + P2P or NAN
+WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P, NAN}, 1}}
+endif
+
 # Override WLAN configurations
 # # Usage:
 # # To disable WLAN_CFG_1/WLAN_CFG_3 and enable WLAN_CFG_2 for <wlan_chip>
