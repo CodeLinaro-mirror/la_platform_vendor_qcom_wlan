@@ -24,3 +24,6 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # Enable SAP + SAP Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_AP := true
+
+# Enable STA + STA Feature.
+QC_WIFI_HIDL_FEATURE_DUAL_STA := true
