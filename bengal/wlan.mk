@@ -30,3 +30,6 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 
 #Enable cal delete feature
 TARGET_CAL_DATA_CLEAR := true
+
+# Enable IWIFI Lazy HAL
+TARGET_USES_WIFI_LAZY_HAL := true
