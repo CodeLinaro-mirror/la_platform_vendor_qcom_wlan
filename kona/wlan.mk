@@ -1,5 +1,5 @@
 # Add supported chips for autodetection
-TARGET_WLAN_CHIP := qca6390
+TARGET_WLAN_CHIP := qca6390 qca6490
 
 WLAN_CHIPSET := qca_cld3
 
@@ -46,6 +46,15 @@ PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip)
 #  WLAN_CFG_OVERRIDE_<wlan_chip> := WLAN_CFG_1=n WLAN_CFG_2=y WLAN_CFG_3=n
 
 WLAN_CFG_OVERRIDE_qca6390 := CONFIG_CNSS_QCA6390=y
+WLAN_CFG_OVERRIDE_qca6490 := CONFIG_CNSS_QCA6490=y
 
 # Use default_config for all chips. Used with TARGET_WLAN_CHIP.
 WLAN_CFG_USE_DEFAULT := true
+
+# Inject Kbuild options per chip
+#
+# Select proper chip configuration for building WLAN driver module. Currently
+# driver supports only one chip configuration per build.
+#
+WLAN_KBUILD_OPTIONS_qca6390 := CONFIG_CNSS_QCA6390=y
+WLAN_KBUILD_OPTIONS_qca6490 := CONFIG_CNSS_QCA6490=y
