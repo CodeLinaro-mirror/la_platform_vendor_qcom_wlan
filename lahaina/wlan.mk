@@ -6,6 +6,8 @@ WPA := wpa_cli
 PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += $(WPA)
+PRODUCT_PACKAGES += lowirpcd
+PRODUCT_PACKAGES += qsh_wifi_test
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
@@ -31,3 +33,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Enable STA + STA Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_STA := true
+
+#Disable DMS MAC address feature in cnss-daemon
+TARGET_USES_NO_DMS_QMI_CLINET := true
