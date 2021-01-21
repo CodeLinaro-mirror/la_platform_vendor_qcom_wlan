@@ -39,6 +39,7 @@ if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 	elif lspci -k |grep cnss_pci|grep ":1102";then
 		setprop ro.vendor.wlan.chip qcn7605
 		setprop ro.vendor.wlan.apf false
+		setprop ro.vendor.wlan.aware false
 	fi
 else
 	setprop ro.vendor.wlan.chip wlan
