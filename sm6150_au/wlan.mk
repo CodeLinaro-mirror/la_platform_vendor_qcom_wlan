@@ -44,8 +44,9 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 WIFI_HIDL_FEATURE_AWARE := true
 else
 # Value-added AOSP: STA + SAP + P2P or STA + P2P/NAN
-WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
-	                               {{{STA}, 1}, {{P2P, NAN}, 1}}
+WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}}, \
+                                   {{{STA}, 1}, {{NAN}, 1}}, \
+                                   {{{STA}, 2}, {{AP}, 1}}
 endif
 
 # Override WLAN configurations
