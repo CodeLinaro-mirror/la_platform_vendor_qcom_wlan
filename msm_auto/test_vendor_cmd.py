@@ -1312,3 +1312,96 @@ def test_send_ani_level_cmd(dev, apdev):
     finally:
         whunt_daemon_util.wcd_cli_unload_test(core_id="0")
 
+def test_chan_list0(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ end > start case testing """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2437 --FREQ_END 2412 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list1(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ corner case overlap testing 1 """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 5785 --FREQ_END 5796 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list2(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ whether same band case testing """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2412 --FREQ_END 5745 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list3(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ Date: 7/05/2021 """
+    """ 2.4g case testing """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2412 --FREQ_END 2417 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list4(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ Date: 7/05/2021 """
+    """ 5g inside case testing """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 5755 --FREQ_END 5775 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list5(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ Date: 7/05/2021 """
+    """ corner case 5170-5190 testing 2"""
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 5180 --FREQ_END 5180 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list6(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ missing END """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2437 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list7(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ missing START """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_END 2437 --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list8(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ bigger than 2.4g max freq """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2462 --FREQ_END 2489 --END_ATTR --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list9(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ no valid center freq """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 5746 --FREQ_END 5746 --END_ATTR --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list10(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ clean avoid freq list """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --AVOID_FREQUENCY_EXT --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list11(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ multi avoid freq range list """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --AVOID_FREQUENCY_EXT --FREQ_RANGE --NESTED_AUTO --FREQ_START 2412 --FREQ_END 2417 --END_ATTR --NESTED_AUTO --FREQ_START 2452 --FREQ_END 2452 --END_ATTR --NESTED_AUTO --FREQ_START 5380 --FREQ_END 5540 --END_ATTR --NESTED_AUTO --FREQ_START 5180 --FREQ_END 5180 --END_ATTR --NESTED_AUTO --FREQ_START 5805 --FREQ_END 5805 --END_ATTR --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
+
+def test_chan_list12(dev, apdev):
+    """ QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY_EXT """
+    """ multi avoid freq range list """
+    cmd = '-i wlan0 --START_CMD --AVOID_FREQUENCY_EXT --AVOID_FREQUENCY_EXT --NESTED_AUTO --FREQ_START 2462 --FREQ_END 2462 --END_ATTR --END_ATTR --END_ATTR --END_CMD'
+    vendor_cmd_execute(dev, cmd, "AVOID_FREQUENCY_EXT")
+    time.sleep(1)
