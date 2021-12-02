@@ -38,15 +38,11 @@ PRODUCT_COPY_FILES += \
     device/qcom/wlan/sm6150_au/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh
 endif
 
-ifeq ($(TARGET_USES_AOSP_FOR_WLAN), true)
-# Pure AOSP: Use pre-defined interface combinations with STA+SAP support
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-WIFI_HIDL_FEATURE_AWARE := true
-else
-# Value-added AOSP: STA + SAP + P2P or STA + P2P/NAN
+# AOSP: interface combinations
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
-	                               {{{STA}, 1}, {{P2P, NAN}, 1}}
-endif
+                                   {{{STA}, 1}, {{NAN}, 1}}, \
+                                   {{{STA}, 2}, {{AP}, 1}}, \
+                                   {{{STA}, 1}, {{AP}, 2}}
 
 # Override WLAN configurations
 # # Usage:
@@ -55,7 +51,7 @@ endif
 # #   WLAN_CFG_OVERRIDE_<wlan_chip> := WLAN_CFG_1=n WLAN_CFG_2=y WLAN_CFG_3=n
 WLAN_CFG_OVERRIDE_qca6174 := CONFIG_AR6320_SUPPORT=y
 WLAN_CFG_OVERRIDE_qca6390 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y
-WLAN_CFG_OVERRIDE_qcn7605 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y
+WLAN_CFG_OVERRIDE_qcn7605 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y CONFIG_WLAN_OPEN_P2P_INTERFACE=n CONFIG_SUPPORT_P2P_BY_ONE_INTF_WLAN=y
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
