@@ -20,10 +20,10 @@ ifeq ($(BOARD_WLAN_DIR),)
 endif
 
 PRODUCT_COPY_FILES += \
-	$(BOARD_WLAN_DIR)/monaco/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
-	$(BOARD_WLAN_DIR)/monaco/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	$(BOARD_WLAN_DIR)/monaco/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-	$(BOARD_WLAN_DIR)/monaco/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf
+	$(BOARD_WLAN_DIR)/monaco_go/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
+	$(BOARD_WLAN_DIR)/monaco_go/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+	$(BOARD_WLAN_DIR)/monaco_go/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+	$(BOARD_WLAN_DIR)/monaco_go/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf
 
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 PRODUCT_COPY_FILES += \
@@ -45,9 +45,6 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 
 #Enable cal delete feature
 TARGET_CAL_DATA_CLEAR := true
-
-#Disable Perf tuner in cnss-daemon
-TARGET_USES_NO_CNSS_DP := true
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \

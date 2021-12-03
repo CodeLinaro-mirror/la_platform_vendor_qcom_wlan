@@ -6,6 +6,9 @@ PRODUCT_PACKAGES += \
 	wificond \
 	wifilogd
 
+#Disable CNSS_CLI
+TARGET_NO_USE_CNSS_CLI := true
+
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
@@ -38,15 +41,11 @@ PRODUCT_COPY_FILES += \
     device/qcom/wlan/sm6150_au/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh
 endif
 
-ifeq ($(TARGET_USES_AOSP_FOR_WLAN), true)
-# Pure AOSP: Use pre-defined interface combinations with STA+SAP support
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-WIFI_HIDL_FEATURE_AWARE := true
-else
-# Value-added AOSP: STA + SAP + P2P or STA + P2P/NAN
+# AOSP: interface combinations
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
-	                               {{{STA}, 1}, {{P2P, NAN}, 1}}
-endif
+                                   {{{STA}, 1}, {{NAN}, 1}}, \
+                                   {{{STA}, 2}, {{AP}, 1}}, \
+                                   {{{STA}, 1}, {{AP}, 2}}
 
 # Override WLAN configurations
 # # Usage:
