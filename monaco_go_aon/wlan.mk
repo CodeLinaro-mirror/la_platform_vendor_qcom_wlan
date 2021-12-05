@@ -20,10 +20,10 @@ ifeq ($(BOARD_WLAN_DIR),)
 endif
 
 PRODUCT_COPY_FILES += \
-	$(BOARD_WLAN_DIR)/monaco/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
-	$(BOARD_WLAN_DIR)/monaco/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	$(BOARD_WLAN_DIR)/monaco/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-	$(BOARD_WLAN_DIR)/monaco/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf
+	$(BOARD_WLAN_DIR)/monaco_go_aon/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
+	$(BOARD_WLAN_DIR)/monaco_go_aon/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+	$(BOARD_WLAN_DIR)/monaco_go_aon/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+	$(BOARD_WLAN_DIR)/monaco_go_aon/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf
 
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 PRODUCT_COPY_FILES += \
