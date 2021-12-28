@@ -9,6 +9,7 @@ WPA := wpa_cli
 PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += $(WPA)
+PRODUCT_PACKAGES += ctrlapp_dut
 
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 #Enable WIFI AWARE FEATURE
