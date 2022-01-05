@@ -6,6 +6,9 @@ PRODUCT_PACKAGES += \
 	wificond \
 	wifilogd
 
+#Disable CNSS_CLI
+TARGET_NO_USE_CNSS_CLI := true
+
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
@@ -51,7 +54,7 @@ WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
 # #   WLAN_CFG_OVERRIDE_<wlan_chip> := WLAN_CFG_1=n WLAN_CFG_2=y WLAN_CFG_3=n
 WLAN_CFG_OVERRIDE_qca6174 := CONFIG_AR6320_SUPPORT=y
 WLAN_CFG_OVERRIDE_qca6390 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y
-WLAN_CFG_OVERRIDE_qcn7605 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y CONFIG_WLAN_OPEN_P2P_INTERFACE=n CONFIG_SUPPORT_P2P_BY_ONE_INTF_WLAN=y
+WLAN_CFG_OVERRIDE_qcn7605 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BTC_CHAIN_MODE=y
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
