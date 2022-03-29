@@ -52,6 +52,55 @@ TEST.SCRIPT_FEATURE:VCAST_MAIN_NOT_RENAMED
 
 -- Subprogram: ap_ctrl_iface_acl_add_mac
 
+-- Test Case: ER07189_6.3.3.1_negative_ACCEPT_UNLESS_DENIED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_add_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.1_negative_ACCEPT_UNLESS_DENIED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.acl_type:ACCEPT_UNLESS_DENIED
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.buf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_add_mac.return:-1
+TEST.END
+
+-- Test Case: ER07189_6.3.3.1_negative_DENY_UNLESS_ACCEPTED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_add_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.1_negative_DENY_UNLESS_ACCEPTED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 3
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> WPA_SETBAND_6G
+      (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.acl_type:DENY_UNLESS_ACCEPTED
+TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.buf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_add_mac.return:-1
+TEST.END
+
 -- Test Case: ER07189_6.3.3.1_negative_EXTERNAL_TYPE
 TEST.UNIT:ap
 TEST.SUBPROGRAM:ap_ctrl_iface_acl_add_mac
@@ -73,7 +122,7 @@ TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.buf:<<malloc 1>>
-TEST.EXPECTED:ap.ap_ctrl_iface_acl_add_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_add_mac.return:-1
 TEST.END
 
 -- Test Case: ER07189_6.3.3.1_negative_ap_iface_null
@@ -108,6 +157,8 @@ This is an automatically generated test case.
       (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -132,6 +183,8 @@ This is an automatically generated test case.
       (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_add_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_add_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -198,6 +251,7 @@ This is an automatically generated test case.
       (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_clear_list
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -221,6 +275,7 @@ This is an automatically generated test case.
       (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_clear_list
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_clear_list.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -231,6 +286,55 @@ TEST.EXPECTED:ap.ap_ctrl_iface_acl_clear_list.acl_type:DENY_UNLESS_ACCEPTED
 TEST.END
 
 -- Subprogram: ap_ctrl_iface_acl_del_mac
+
+-- Test Case: ER07189_6.3.3.2_negative_ACCEPT_UNLESS_DENIED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_del_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.2_negative_ACCEPT_UNLESS_DENIED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.acl_type:ACCEPT_UNLESS_DENIED
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.buf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_del_mac.return:-1
+TEST.END
+
+-- Test Case: ER07189_6.3.3.2_negative_DENY_UNLESS_ACCEPTED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_del_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.2_negative_DENY_UNLESS_ACCEPTED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 3
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> WPA_SETBAND_6G
+      (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.acl_type:DENY_UNLESS_ACCEPTED
+TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.buf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_del_mac.return:-1
+TEST.END
 
 -- Test Case: ER07189_6.3.3.2_negative_EXTERNAL_TYPE
 TEST.UNIT:ap
@@ -253,7 +357,7 @@ TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.buf:<<malloc 1>>
-TEST.EXPECTED:ap.ap_ctrl_iface_acl_del_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_del_mac.return:-1
 TEST.END
 
 -- Test Case: ER07189_6.3.3.2_negative_ap_iface_null
@@ -288,6 +392,8 @@ This is an automatically generated test case.
       (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -312,6 +418,8 @@ This is an automatically generated test case.
       (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_del_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_del_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -323,6 +431,57 @@ TEST.EXPECTED:ap.ap_ctrl_iface_acl_del_mac.return:0
 TEST.END
 
 -- Subprogram: ap_ctrl_iface_acl_show_mac
+
+-- Test Case: ER07189_6.3.3.3_negative_ACCEPT_UNLESS_DENIED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_show_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.3_negative_ACCEPT_UNLESS_DENIED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.acl_type:ACCEPT_UNLESS_DENIED
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:1000
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.return:-1
+TEST.END
+
+-- Test Case: ER07189_6.3.3.3_negative_DENY_UNLESS_ACCEPTED
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_acl_show_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.3_negative_DENY_UNLESS_ACCEPTED
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 3
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+      (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> WPA_SETBAND_6G
+      (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.acl_type:DENY_UNLESS_ACCEPTED
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buf:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:1000
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.return:-1
+TEST.END
 
 -- Test Case: ER07189_6.3.3.3_negative_EXTERNAL_TYPE
 TEST.UNIT:ap
@@ -346,7 +505,7 @@ TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<m
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buf:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:<<MIN>>
-TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.acl_type:USE_EXTERNAL_RADIUS_AUTH
+TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.return:-1
 TEST.END
 
 -- Test Case: ER07189_6.3.3.3_negative_ap_iface_null
@@ -382,6 +541,8 @@ This is an automatically generated test case.
       (2) if (acl_type == (ACCEPT_UNLESS_DENIED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -389,7 +550,7 @@ TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.acl_type:ACCEPT_UNLESS_DENIED
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buf:<<malloc 1>>
-TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:<<MIN>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:1000
 TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.return:0
 TEST.END
 
@@ -407,6 +568,8 @@ This is an automatically generated test case.
       (3) if (acl_type == (DENY_UNLESS_ACCEPTED)) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_acl_show_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -414,11 +577,31 @@ TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.acl_type:DENY_UNLESS_ACCEPTED
 TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buf:<<malloc 1>>
-TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:<<MIN>>
+TEST.VALUE:ap.ap_ctrl_iface_acl_show_mac.buflen:1000
 TEST.EXPECTED:ap.ap_ctrl_iface_acl_show_mac.return:0
 TEST.END
 
 -- Subprogram: ap_ctrl_iface_bss_tm_req
+
+-- Test Case: ER07189_6.3.3.7_negative_ap_iface__bss_not_null
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_bss_tm_req
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.7_negative_ap_iface__bss_not_null
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_ctrl_iface_bss_tm_req
+TEST.VALUE:ctrl_iface_ap.hostapd_ctrl_iface_bss_tm_req.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_bss_tm_req.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_bss_tm_req.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_bss_tm_req.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_bss_tm_req.buf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_bss_tm_req.return:-1
+TEST.END
 
 -- Test Case: ER07189_6.3.3.7_negative_ap_iface_null
 TEST.UNIT:ap
@@ -461,6 +644,25 @@ TEST.END
 
 -- Subprogram: ap_ctrl_iface_disassoc_deny_mac
 
+-- Test Case: ER07189_6.3.3.6_negative_ap_iface_not_null
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_disassoc_deny_mac
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.6_negative_ap_iface_not_null
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.hostapd_disassoc_deny_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_disassoc_deny_mac.return:-1
+TEST.END
+
 -- Test Case: ER07189_6.3.3.6_negative_ap_iface_null
 TEST.UNIT:ap
 TEST.SUBPROGRAM:ap_ctrl_iface_disassoc_deny_mac
@@ -491,6 +693,7 @@ This is an automatically generated test case.
    Test Case Generation Notes:
 TEST.END_NOTES:
 TEST.STUB:ctrl_iface_ap.hostapd_disassoc_deny_mac
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
 TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_disassoc_deny_mac.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -498,6 +701,28 @@ TEST.EXPECTED:ap.ap_ctrl_iface_disassoc_deny_mac.return:0
 TEST.END
 
 -- Subprogram: ap_ctrl_iface_set_acl
+
+-- Test Case: ER07189_6.3.3.5_negative_ap_iface_not_null
+TEST.UNIT:ap
+TEST.SUBPROGRAM:ap_ctrl_iface_set_acl
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.5_negative_ap_iface_not_null
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 2
+      (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:hostapd.hostapd_set_acl
+TEST.VALUE:hostapd.hostapd_set_acl.return:-1
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface[0].bss[0]:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface[0].bss[0][0].iface:<<malloc 1>>
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface[0].bss[0][0].iconf:<<malloc 1>>
+TEST.EXPECTED:ap.ap_ctrl_iface_set_acl.return:-1
+TEST.END
 
 -- Test Case: ER07189_6.3.3.5_negative_ap_iface_null
 TEST.UNIT:ap
@@ -528,6 +753,8 @@ This is an automatically generated test case.
       (1) if (wpa_s->ap_iface) ==> NESTED_ATTR_USED
    Test Case Generation Notes:
 TEST.END_NOTES:
+TEST.STUB:hostapd.hostapd_set_acl
+TEST.VALUE:hostapd.hostapd_set_acl.return:0
 TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface:<<malloc 1>>
 TEST.VALUE:ap.ap_ctrl_iface_set_acl.wpa_s[0].ap_iface[0].bss:<<malloc 1>>
@@ -16533,6 +16760,8 @@ This is an automatically generated test case.
       Cannot set return value of function strcmp in branch 163
       Cannot set reply_len due to assignment
 TEST.END_NOTES:
+TEST.STUB:ap_config.hostapd_maclist_found
+TEST.VALUE:ap_config.hostapd_maclist_found.return:0,1
 TEST.VALUE:uut_prototype_stubs.ap_get_sta.return:<<malloc 1>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s:<<malloc 1>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface:<<malloc 1>>
@@ -16542,6 +16771,7 @@ TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].macaddr_acl:ACCEPT_UNLESS_DENIED
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].deny_mac:<<malloc 1>>
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].sta_list:<<malloc 1>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:<<malloc 35>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:"DENY_ACL ADD_MAC 11:22:33:44:55:66"
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.resp_len:<<malloc 1>>
@@ -17247,12 +17477,10 @@ TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf:<<malloc 1>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].macaddr_acl:ACCEPT_UNLESS_DENIED
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].deny_mac:<<malloc 1>>
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].num_deny_mac:1
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:<<malloc 14>>
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:"DENY_ACL SHOW"
 TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.resp_len:<<malloc 1>>
-TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[0]:'O'
-TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[1]:'K'
-TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[2]:012
 TEST.ATTRIBUTES:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].deny_mac[0].addr[0]:INPUT_BASE=16
 TEST.ATTRIBUTES:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].deny_mac[0].addr[1]:INPUT_BASE=16
 TEST.ATTRIBUTES:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s[0].ap_iface[0].bss[0][0].conf[0].deny_mac[0].addr[2]:INPUT_BASE=16
@@ -18373,6 +18601,228 @@ TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[1]:'A'
 TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[2]:0x49
 TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[3]:'L'
 TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[4]:0xA
+TEST.END
+
+-- Test Case: ER07190_5.3.4.1_negative_DENY_ACL_CLEAR
+TEST.UNIT:ctrl_iface
+TEST.SUBPROGRAM:wpa_supplicant_ctrl_iface_process
+TEST.NEW
+TEST.NAME:ER07190_5.3.4.1_negative_DENY_ACL_CLEAR
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 3
+      (1) if (((strncmp(buf, "CTRL-RSP-", strlen("CTRL-RSP-")) == 0 || strncmp(buf, "SET_NETWORK ", 12) == 0) || strncmp(buf, "PMKSA_ADD ", 10) == 0) || strncmp(buf, "MESH_PMKSA_ADD ", 15) == 0) ==> IPV4
+      (5) if (strncmp(buf, "WPS_NFC_TAG_READ", 16) == 0 || strncmp(buf, "NFC_REPORT_HANDOVER", 19) == 0) ==> IPV4
+      (6) if (reply == (void *)0) ==> IPV4
+      (7) if (strcmp(buf, "PING") == 0) ==> IPV4
+      (8) if (strcmp(buf, "IFNAME") == 0) ==> IPV4
+      (9) if (strncmp(buf, "RELOG", 5) == 0) ==> IPV4
+      (11) if (strncmp(buf, "NOTE ", 5) == 0) ==> IPV4
+      (12) if (strcmp(buf, "MIB") == 0) ==> IPV4
+      (14) if (strncmp(buf, "STATUS", 6) == 0) ==> IPV4
+      (15) if (strcmp(buf, "PMKSA") == 0) ==> IPV4
+      (16) if (strcmp(buf, "PMKSA_FLUSH") == 0) ==> IPV4
+      (17) if (strncmp(buf, "SET ", 4) == 0) ==> IPV4
+      (19) if (strncmp(buf, "DUMP", 4) == 0) ==> IPV4
+      (20) if (strncmp(buf, "GET ", 4) == 0) ==> IPV4
+      (21) if (strcmp(buf, "LOGON") == 0) ==> IPV4
+      (22) if (strcmp(buf, "LOGOFF") == 0) ==> IPV4
+      (23) if (strcmp(buf, "REASSOCIATE") == 0) ==> IPV4
+      (25) if (strcmp(buf, "REATTACH") == 0) ==> IPV4
+      (27) if (strcmp(buf, "RECONNECT") == 0) ==> IPV4
+      (30) if (strncmp(buf, "PREAUTH ", 8) == 0) ==> IPV4
+      (32) if (strncmp(buf, "FT_DS ", 6) == 0) ==> IPV4
+      (34) if (strcmp(buf, "WPS_PBC") == 0) ==> IPV4
+      (37) if (strncmp(buf, "WPS_PBC ", 8) == 0) ==> IPV4
+      (40) if (strncmp(buf, "WPS_PIN ", 8) == 0) ==> IPV4
+      (41) if (strncmp(buf, "WPS_CHECK_PIN ", 14) == 0) ==> IPV4
+      (42) if (strcmp(buf, "WPS_CANCEL") == 0) ==> IPV4
+      (44) if (strncmp(buf, "WPS_REG ", 8) == 0) ==> IPV4
+      (46) if (strncmp(buf, "WPS_AP_PIN ", 11) == 0) ==> IPV4
+      (47) if (strncmp(buf, "P2P_FIND ", 9) == 0) ==> IPV4
+      (49) if (strcmp(buf, "P2P_FIND") == 0) ==> IPV4
+      (51) if (strcmp(buf, "P2P_STOP_FIND") == 0) ==> IPV4
+      (52) if (strncmp(buf, "P2P_ASP_PROVISION ", 18) == 0) ==> IPV4
+      (54) if (strncmp(buf, "P2P_ASP_PROVISION_RESP ", 23) == 0) ==> IPV4
+      (56) if (strncmp(buf, "P2P_CONNECT ", 12) == 0) ==> IPV4
+      (57) if (strncmp(buf, "P2P_LISTEN ", 11) == 0) ==> IPV4
+      (59) if (strcmp(buf, "P2P_LISTEN") == 0) ==> IPV4
+      (61) if (strncmp(buf, "P2P_GROUP_REMOVE ", 17) == 0) ==> IPV4
+      (63) if (strcmp(buf, "P2P_GROUP_ADD") == 0) ==> IPV4
+      (65) if (strncmp(buf, "P2P_GROUP_ADD ", 14) == 0) ==> IPV4
+      (67) if (strncmp(buf, "P2P_GROUP_MEMBER ", 17) == 0) ==> IPV4
+      (68) if (strncmp(buf, "P2P_PROV_DISC ", 14) == 0) ==> IPV4
+      (70) if (strcmp(buf, "P2P_GET_PASSPHRASE") == 0) ==> IPV4
+      (71) if (strncmp(buf, "P2P_SERV_DISC_REQ ", 18) == 0) ==> IPV4
+      (72) if (strncmp(buf, "P2P_SERV_DISC_CANCEL_REQ ", 25) == 0) ==> IPV4
+      (74) if (strncmp(buf, "P2P_SERV_DISC_RESP ", 19) == 0) ==> IPV4
+      (76) if (strcmp(buf, "P2P_SERVICE_UPDATE") == 0) ==> IPV4
+      (77) if (strncmp(buf, "P2P_SERV_DISC_EXTERNAL ", 23) == 0) ==> IPV4
+      (79) if (strcmp(buf, "P2P_SERVICE_FLUSH") == 0) ==> IPV4
+      (80) if (strncmp(buf, "P2P_SERVICE_ADD ", 16) == 0) ==> IPV4
+      (82) if (strncmp(buf, "P2P_SERVICE_DEL ", 16) == 0) ==> IPV4
+      (84) if (strncmp(buf, "P2P_SERVICE_REP ", 16) == 0) ==> IPV4
+      (86) if (strncmp(buf, "P2P_REJECT ", 11) == 0) ==> IPV4
+      (88) if (strncmp(buf, "P2P_INVITE ", 11) == 0) ==> IPV4
+      (90) if (strncmp(buf, "P2P_PEER ", 9) == 0) ==> IPV4
+      (91) if (strncmp(buf, "P2P_SET ", 8) == 0) ==> IPV4
+      (93) if (strcmp(buf, "P2P_FLUSH") == 0) ==> IPV4
+      (94) if (strncmp(buf, "P2P_UNAUTHORIZE ", 16) == 0) ==> IPV4
+      (96) if (strcmp(buf, "P2P_CANCEL") == 0) ==> IPV4
+      (98) if (strncmp(buf, "P2P_PRESENCE_REQ ", 17) == 0) ==> IPV4
+      (100) if (strcmp(buf, "P2P_PRESENCE_REQ") == 0) ==> IPV4
+      (102) if (strncmp(buf, "P2P_EXT_LISTEN ", 15) == 0) ==> IPV4
+      (104) if (strcmp(buf, "P2P_EXT_LISTEN") == 0) ==> IPV4
+      (106) if (strncmp(buf, "P2P_REMOVE_CLIENT ", 18) == 0) ==> IPV4
+      (108) if (strncmp(buf, "P2P_LO_START ", 13) == 0) ==> IPV4
+      (110) if (strcmp(buf, "P2P_LO_STOP") == 0) ==> IPV4
+      (112) if (strncmp(buf, "WFD_SUBELEM_SET ", 16) == 0) ==> IPV4
+      (114) if (strncmp(buf, "WFD_SUBELEM_GET ", 16) == 0) ==> IPV4
+      (115) if (strcmp(buf, "FETCH_ANQP") == 0) ==> IPV4
+      (117) if (strcmp(buf, "STOP_FETCH_ANQP") == 0) ==> IPV4
+      (118) if (strcmp(buf, "INTERWORKING_SELECT") == 0) ==> IPV4
+      (120) if (strncmp(buf, "INTERWORKING_SELECT ", 20) == 0) ==> IPV4
+      (122) if (strncmp(buf, "INTERWORKING_CONNECT ", 21) == 0) ==> IPV4
+      (124) if (strncmp(buf, "INTERWORKING_ADD_NETWORK ", 25) == 0) ==> IPV4
+      (127) if (strncmp(buf, "ANQP_GET ", 9) == 0) ==> IPV4
+      (129) if (strncmp(buf, "GAS_REQUEST ", 12) == 0) ==> IPV4
+      (131) if (strncmp(buf, "GAS_RESPONSE_GET ", 17) == 0) ==> IPV4
+      (132) if (strncmp(buf, "HS20_ANQP_GET ", 14) == 0) ==> IPV4
+      (134) if (strncmp(buf, "HS20_GET_NAI_HOME_REALM_LIST ", 29) == 0) ==> IPV4
+      (136) if (strncmp(buf, "HS20_ICON_REQUEST ", 18) == 0) ==> IPV4
+      (138) if (strncmp(buf, "REQ_HS20_ICON ", 14) == 0) ==> IPV4
+      (140) if (strncmp(buf, "GET_HS20_ICON ", 14) == 0) ==> IPV4
+      (141) if (strncmp(buf, "DEL_HS20_ICON ", 14) == 0) ==> IPV4
+      (143) if (strcmp(buf, "FETCH_OSU") == 0) ==> IPV4
+      (145) if (strcmp(buf, "FETCH_OSU no-scan") == 0) ==> IPV4
+      (147) if (strcmp(buf, "CANCEL_FETCH_OSU") == 0) ==> IPV4
+      (148) if (strncmp(buf, "CTRL-RSP-", strlen("CTRL-RSP-")) == 0) ==> IPV4
+      (150) if (strcmp(buf, "RECONFIGURE") == 0) ==> IPV4
+      (152) if (strcmp(buf, "TERMINATE") == 0) ==> IPV4
+      (153) if (strncmp(buf, "BSSID ", 6) == 0) ==> IPV4
+      (155) if (strncmp(buf, "BLACKLIST", 9) == 0) ==> IPV4
+      (156) if (strncmp(buf, "LOG_LEVEL", 9) == 0) ==> IPV4
+      (157) if (strncmp(buf, "LIST_NETWORKS ", 14) == 0) ==> IPV4
+      (158) if (strcmp(buf, "LIST_NETWORKS") == 0) ==> IPV4
+      (159) if (strcmp(buf, "DISCONNECT") == 0) ==> IPV4
+      (160) if (strcmp(buf, "SCAN") == 0) ==> IPV4
+      (161) if (strncmp(buf, "SCAN ", 5) == 0) ==> IPV4
+      (162) if (strcmp(buf, "SCAN_RESULTS") == 0) ==> IPV4
+      (163) if (strcmp(buf, "ABORT_SCAN") == 0) ==> IPV4
+      (164) if (wpas_abort_ongoing_scan(wpa_s) < 0) ==> IPV4
+      (275) if (reply_len < 0) ==> IPV4
+   Test Case Generation Notes:
+      Cannot set return value of function strncmp in branch 1
+      Cannot set return value of function strncmp in branch 5
+      Cannot set return value of function malloc in branch 6
+      Cannot set return value of function strcmp in branch 7
+      Cannot set return value of function strcmp in branch 8
+      Cannot set return value of function strncmp in branch 9
+      Cannot set return value of function strncmp in branch 11
+      Cannot set return value of function strcmp in branch 12
+      Cannot set return value of function strncmp in branch 14
+      Cannot set return value of function strcmp in branch 15
+      Cannot set return value of function strcmp in branch 16
+      Cannot set return value of function strncmp in branch 17
+      Cannot set return value of function strncmp in branch 19
+      Cannot set return value of function strncmp in branch 20
+      Cannot set return value of function strcmp in branch 21
+      Cannot set return value of function strcmp in branch 22
+      Cannot set return value of function strcmp in branch 23
+      Cannot set return value of function strcmp in branch 25
+      Cannot set return value of function strcmp in branch 27
+      Cannot set return value of function strncmp in branch 30
+      Cannot set return value of function strncmp in branch 32
+      Cannot set return value of function strcmp in branch 34
+      Cannot set return value of function strncmp in branch 37
+      Cannot set return value of function strncmp in branch 40
+      Cannot set return value of function strncmp in branch 41
+      Cannot set return value of function strcmp in branch 42
+      Cannot set return value of function strncmp in branch 44
+      Cannot set return value of function strncmp in branch 46
+      Cannot set return value of function strncmp in branch 47
+      Cannot set return value of function strcmp in branch 49
+      Cannot set return value of function strcmp in branch 51
+      Cannot set return value of function strncmp in branch 52
+      Cannot set return value of function strncmp in branch 54
+      Cannot set return value of function strncmp in branch 56
+      Cannot set return value of function strncmp in branch 57
+      Cannot set return value of function strcmp in branch 59
+      Cannot set return value of function strncmp in branch 61
+      Cannot set return value of function strcmp in branch 63
+      Cannot set return value of function strncmp in branch 65
+      Cannot set return value of function strncmp in branch 67
+      Cannot set return value of function strncmp in branch 68
+      Cannot set return value of function strcmp in branch 70
+      Cannot set return value of function strncmp in branch 71
+      Cannot set return value of function strncmp in branch 72
+      Cannot set return value of function strncmp in branch 74
+      Cannot set return value of function strcmp in branch 76
+      Cannot set return value of function strncmp in branch 77
+      Cannot set return value of function strcmp in branch 79
+      Cannot set return value of function strncmp in branch 80
+      Cannot set return value of function strncmp in branch 82
+      Cannot set return value of function strncmp in branch 84
+      Cannot set return value of function strncmp in branch 86
+      Cannot set return value of function strncmp in branch 88
+      Cannot set return value of function strncmp in branch 90
+      Cannot set return value of function strncmp in branch 91
+      Cannot set return value of function strcmp in branch 93
+      Cannot set return value of function strncmp in branch 94
+      Cannot set return value of function strcmp in branch 96
+      Cannot set return value of function strncmp in branch 98
+      Cannot set return value of function strcmp in branch 100
+      Cannot set return value of function strncmp in branch 102
+      Cannot set return value of function strcmp in branch 104
+      Cannot set return value of function strncmp in branch 106
+      Cannot set return value of function strncmp in branch 108
+      Cannot set return value of function strcmp in branch 110
+      Cannot set return value of function strncmp in branch 112
+      Cannot set return value of function strncmp in branch 114
+      Cannot set return value of function strcmp in branch 115
+      Cannot set return value of function strcmp in branch 117
+      Cannot set return value of function strcmp in branch 118
+      Cannot set return value of function strncmp in branch 120
+      Cannot set return value of function strncmp in branch 122
+      Cannot set return value of function strncmp in branch 124
+      Cannot set return value of function strncmp in branch 127
+      Cannot set return value of function strncmp in branch 129
+      Cannot set return value of function strncmp in branch 131
+      Cannot set return value of function strncmp in branch 132
+      Cannot set return value of function strncmp in branch 134
+      Cannot set return value of function strncmp in branch 136
+      Cannot set return value of function strncmp in branch 138
+      Cannot set return value of function strncmp in branch 140
+      Cannot set return value of function strncmp in branch 141
+      Cannot set return value of function strcmp in branch 143
+      Cannot set return value of function strcmp in branch 145
+      Cannot set return value of function strcmp in branch 147
+      Cannot set return value of function strncmp in branch 148
+      Cannot set return value of function strcmp in branch 150
+      Cannot set return value of function strcmp in branch 152
+      Cannot set return value of function strncmp in branch 153
+      Cannot set return value of function strncmp in branch 155
+      Cannot set return value of function strncmp in branch 156
+      Cannot set return value of function strncmp in branch 157
+      Cannot set return value of function strcmp in branch 158
+      Cannot set return value of function strcmp in branch 159
+      Cannot set return value of function strcmp in branch 160
+      Cannot set return value of function strncmp in branch 161
+      Cannot set return value of function strcmp in branch 162
+      Cannot set return value of function strcmp in branch 163
+      Cannot set reply_len due to assignment
+TEST.END_NOTES:
+TEST.STUB:ap.ap_ctrl_iface_set_acl
+TEST.VALUE:ap.ap_ctrl_iface_set_acl.return:-1
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.wpa_s:<<malloc 1>>
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:<<malloc 15>>
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.buf:"DENY_ACL CLEAR"
+TEST.VALUE:ctrl_iface.wpa_supplicant_ctrl_iface_process.resp_len:<<malloc 1>>
+TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[0]:'F'
+TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[1]:'A'
+TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[2]:'I'
+TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[3]:'L'
+TEST.EXPECTED:ctrl_iface.wpa_supplicant_ctrl_iface_process.return[4]:012
 TEST.END
 
 -- Test Case: ER07190_5.3.4.1_negative_DENY_ACL_DEL_MAC_-1
@@ -70401,6 +70851,7 @@ TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].num_deny_mac:0
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<malloc 1>>
+TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
 TEST.END
 
 -- Test Case: ER07190_5.3.4.7_negative_sta_list_null
@@ -70418,6 +70869,7 @@ TEST.END_NOTES:
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<null>>
 TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<null>>
+TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
 TEST.END
 
 -- Test Case: ER07190_5.3.4.7_positive_hostapd_maclist_found_1_valn_1
@@ -70438,27 +70890,52 @@ TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac[0].v
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].num_deny_mac:1
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list[0].vlan_desc:<<malloc 1>>
+TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
 TEST.END
 
--- Test Case: ER07190_5.3.4.7_positive_hostapd_maclist_found_1_vlan_0
+-- Test Case: ER07190_5.3.4.7_positive_hostapd_maclist_found_1_valn_1_vlan_compare_0
 TEST.UNIT:ctrl_iface_ap
 TEST.SUBPROGRAM:hostapd_disassoc_deny_mac
 TEST.NEW
-TEST.NAME:ER07190_5.3.4.7_positive_hostapd_maclist_found_1_vlan_0
+TEST.NAME:ER07190_5.3.4.7_positive_hostapd_maclist_found_1_valn_1_vlan_compare_0
 TEST.NOTES:
 This is an automatically generated test case.
    Test Path 1
       (1) for sta ==> WPA_IF_NAN
    Test Case Generation Notes:
 TEST.END_NOTES:
-TEST.STUB:ap_config.vlan_compare
-TEST.VALUE:ap_config.vlan_compare.return:0
+TEST.STUB:ctrl_iface_ap.vlan_compare
+TEST.VALUE:ctrl_iface_ap.vlan_compare.return:0
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd:<<malloc 1>>
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf:<<malloc 1>>
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac:<<malloc 1>>
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac[0].vlan_id.notempty:1
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].num_deny_mac:1
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<malloc 1>>
+TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list[0].vlan_desc:<<malloc 1>>
+TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
+TEST.END
+
+-- Test Case: ER07190_5.3.4.7_positive_hostapd_maclist_found_1_vlan_0_vlan_compare_1
+TEST.UNIT:ctrl_iface_ap
+TEST.SUBPROGRAM:hostapd_disassoc_deny_mac
+TEST.NEW
+TEST.NAME:ER07190_5.3.4.7_positive_hostapd_maclist_found_1_vlan_0_vlan_compare_1
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 1
+      (1) for sta ==> WPA_IF_NAN
+   Test Case Generation Notes:
+TEST.END_NOTES:
+TEST.STUB:ctrl_iface_ap.vlan_compare
+TEST.VALUE:ctrl_iface_ap.vlan_compare.return:1
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac:<<malloc 1>>
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].deny_mac[0].vlan_id.notempty:0
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].conf[0].num_deny_mac:1
 TEST.VALUE:ctrl_iface_ap.hostapd_disassoc_deny_mac.hapd[0].sta_list:<<malloc 1>>
+TEST.EXPECTED:ctrl_iface_ap.hostapd_disassoc_deny_mac.return:0
 TEST.END
 
 -- Unit: drv_callbacks
@@ -75283,7 +75760,7 @@ This is an automatically generated test case.
    Test Case Generation Notes:
 TEST.END_NOTES:
 TEST.STUB:hostapd.hostapd_set_acl_list
-TEST.VALUE:hostapd.hostapd_set_acl_list.return:<<MIN>>
+TEST.VALUE:hostapd.hostapd_set_acl_list.return:-1
 TEST.VALUE:hostapd.hostapd_set_acl.hapd:<<malloc 1>>
 TEST.VALUE:hostapd.hostapd_set_acl.hapd[0].iface:<<malloc 1>>
 TEST.VALUE:hostapd.hostapd_set_acl.hapd[0].iface[0].drv_max_acl_mac_addrs:1
@@ -75309,7 +75786,7 @@ This is an automatically generated test case.
    Test Case Generation Notes:
 TEST.END_NOTES:
 TEST.STUB:hostapd.hostapd_set_acl_list
-TEST.VALUE:hostapd.hostapd_set_acl_list.return:<<MIN>>
+TEST.VALUE:hostapd.hostapd_set_acl_list.return:-1
 TEST.VALUE:hostapd.hostapd_set_acl.hapd:<<malloc 1>>
 TEST.VALUE:hostapd.hostapd_set_acl.hapd[0].iface:<<malloc 1>>
 TEST.VALUE:hostapd.hostapd_set_acl.hapd[0].iface[0].drv_max_acl_mac_addrs:1
@@ -75655,6 +76132,34 @@ TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MIN>>
 TEST.EXPECTED:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MIN>>
 TEST.END
 
+-- Test Case: ER07189_6.3.3.11_negative_len_1000_malloc_null
+TEST.UNIT:wnm_ap
+TEST.SUBPROGRAM:ieee802_11_rx_bss_trans_mgmt_query
+TEST.NEW
+TEST.NAME:ER07189_6.3.3.11_negative_len_1000_malloc_null
+TEST.BASIS_PATH:3 of 6 (partial)
+TEST.NOTES:
+This is an automatically generated test case.
+   Test Path 3
+      (1) if (hapd->conf->mbo_enabled) ==> WPA_IF_NAN
+      (2) if (!enabled) ==> WPA_IF_NAN
+      (3) if (len < (2)) ==> WPA_IF_NAN
+      (4) if (hex_len > (1)) ==> WPA_IF_NAN
+   Test Case Generation Notes:
+      Cannot set hex_len due to assignment
+TEST.END_NOTES:
+TEST.STUB:uut_prototype_stubs.malloc
+TEST.VALUE:uut_prototype_stubs.malloc.return:<<null>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd:<<malloc 1>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf:<<malloc 1>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].bss_transition:1
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].mbo_enabled:0
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.addr:<<malloc 1>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.frm:<<malloc 1>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:1000
+TEST.EXPECTED:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:1000
+TEST.END
+
 -- Test Case: ER07189_6.3.3.11_negative_len_MAX
 TEST.UNIT:wnm_ap
 TEST.SUBPROGRAM:ieee802_11_rx_bss_trans_mgmt_query
@@ -75681,33 +76186,6 @@ TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.addr:<<malloc 1>>
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.frm:<<malloc 1>>
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MAX>>
 TEST.EXPECTED:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MAX>>
-TEST.END
-
--- Test Case: ER07189_6.3.3.11_negative_malloc_null
-TEST.UNIT:wnm_ap
-TEST.SUBPROGRAM:ieee802_11_rx_bss_trans_mgmt_query
-TEST.NEW
-TEST.NAME:ER07189_6.3.3.11_negative_malloc_null
-TEST.BASIS_PATH:3 of 6 (partial)
-TEST.NOTES:
-This is an automatically generated test case.
-   Test Path 3
-      (1) if (hapd->conf->mbo_enabled) ==> WPA_IF_NAN
-      (2) if (!enabled) ==> WPA_IF_NAN
-      (3) if (len < (2)) ==> WPA_IF_NAN
-      (4) if (hex_len > (1)) ==> WPA_IF_NAN
-   Test Case Generation Notes:
-      Cannot set hex_len due to assignment
-TEST.END_NOTES:
-TEST.STUB:uut_prototype_stubs.malloc
-TEST.VALUE:uut_prototype_stubs.malloc.return:<<null>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd:<<malloc 1>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf:<<malloc 1>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].bss_transition:1
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].mbo_enabled:0
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.addr:<<malloc 1>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.frm:<<malloc 1>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MAX>>
 TEST.END
 
 -- Test Case: ER07189_6.3.3.11_positive_deliver_query_event_len_10
@@ -75790,7 +76268,7 @@ This is an automatically generated test case.
 TEST.END_NOTES:
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd:<<malloc 1>>
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf:<<malloc 1>>
-TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].mbo_enabled:<<MIN>>
+TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.hapd[0].conf[0].mbo_enabled:1
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.addr:<<malloc 1>>
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.frm:<<malloc 1>>
 TEST.VALUE:wnm_ap.ieee802_11_rx_bss_trans_mgmt_query.len:<<MIN>>
