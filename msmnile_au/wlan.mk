@@ -6,6 +6,9 @@ WLAN_CHIPSET := qca_cld3
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
 
+#Disable CNSS_CLI
+TARGET_NO_USE_CNSS_CLI := true
+
 PRODUCT_COPY_FILES += \
 	device/qcom/wlan/msmnile_au/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	device/qcom/wlan/msmnile_au/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
@@ -39,6 +42,8 @@ PRODUCT_PACKAGES += init.qcom.wlan.sh
 PRODUCT_COPY_FILES += \
     device/qcom/wlan/msmnile_au/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh
 endif
+
+PRODUCT_PACKAGES += ctrlapp_dut
 
 # AOSP: interface combinations
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
