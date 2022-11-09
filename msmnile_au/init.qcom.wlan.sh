@@ -28,29 +28,111 @@
 #
 #
 
-runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
+# Function to enable single wifi
+function enable_single_wifi() {
+	setprop ro.vendor.wlan.dual_wlan_enaled false
+	if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
+		if lspci -kn |grep cnss_pci|grep ":1100";then
+			setprop ro.vendor.wlan.chip qca6290
+		elif lspci -kn |grep cnss_pci|grep ":003e";then
+			setprop ro.vendor.wlan.chip qca6174
+			setprop ro.vendor.wlan.aware false
+			setprop ro.vendor.wlan.11ax false
+			setprop ro.vendor.wlan.sta_plus_sta false
+		elif lspci -kn |grep cnss_pci|grep ":1101";then
+			setprop ro.vendor.wlan.chip qca6390
+		elif lspci -kn |grep cnss_pci|grep ":1102";then
+			setprop ro.vendor.wlan.chip qcn7605
+			setprop ro.vendor.wlan.apf false
+			setprop ro.vendor.wlan.11ax false
+			setprop ro.vendor.wlan.aware false
+		elif lspci -kn |grep cnss_pci|grep ":1103";then
+			setprop ro.vendor.wlan.chip qca6490
+		fi
+	else
+		setprop ro.vendor.wlan.chip wlan
+	fi
 
-if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
-	if lspci -kn |grep cnss_pci|grep ":1100";then
-		setprop ro.vendor.wlan.chip qca6290
-	elif lspci -kn |grep cnss_pci|grep ":003e";then
-		setprop ro.vendor.wlan.chip qca6174
-		setprop ro.vendor.wlan.aware false
-		setprop ro.vendor.wlan.11ax false
-		setprop ro.vendor.wlan.sta_plus_sta false
-	elif lspci -kn |grep cnss_pci|grep ":1101";then
+	# insmod qcacld driver
+	runcon u:r:vendor_modprobe:s0 insmod /vendor/lib/modules/qca_cld3_$(getprop ro.vendor.wlan.chip).ko
+	setprop vendor.wlan.driver.status "ok"
+}
+
+# Function to enable dual wifi
+function enable_dual_wifi() {
+	# automatically get PCI RC numeber for primary and secondary WLAN
+	primary_pci_rc=`xxd /sys/devices/platform/soc/soc:qcom,cnss-qca-converged0/of_node/qcom,wlan-rc-num`
+	secondary_pci_rc=`xxd /sys/devices/platform/soc/soc:qcom,cnss-qca-converged2/of_node/qcom,wlan-rc-num`
+	primary_array=(${primary_pci_rc//:/})
+	primary_pci_rc=${primary_array[2]}
+	secondary_array=(${secondary_pci_rc//:/})
+	secondary_pci_rc=${secondary_array[2]}
+	#Get PCI device ID
+	primary_dev=`cat /sys/bus/pci/devices/$primary_pci_rc:01:00.0/device`
+	secondary_dev=`cat /sys/bus/pci/devices/$secondary_pci_rc:01:00.0/device`
+
+	if [ ! "$primary_dev" ] || [ ! "$secondary_dev" ]; then
+		echo "No Dual WLAN device detected."
+		return
+	fi
+
+	echo "primary_dev=$primary_dev secondary_dev=$secondary_dev"
+
+	setprop ro.vendor.wlan.dual_wlan_enabled true
+
+	case "$primary_dev" in
+		"0x1101")
 		setprop ro.vendor.wlan.chip qca6390
-	elif lspci -kn |grep cnss_pci|grep ":1102";then
+		;;
+		"0x1102")
 		setprop ro.vendor.wlan.chip qcn7605
 		setprop ro.vendor.wlan.apf false
 		setprop ro.vendor.wlan.11ax false
 		setprop ro.vendor.wlan.aware false
-	elif lspci -kn |grep cnss_pci|grep ":1103";then
+		;;
+		"0x1103")
 		setprop ro.vendor.wlan.chip qca6490
-	fi
-else
-	setprop ro.vendor.wlan.chip wlan
-fi
+		;;
+		*)
+		echo "Not supported device id $primary_dev"
+		;;
+	esac
 
-runcon u:r:vendor_modprobe:s0 insmod /vendor/lib/modules/qca_cld3_$(getprop ro.vendor.wlan.chip).ko
-setprop vendor.wlan.driver.status "ok"
+	case "$secondary_dev" in
+		"0x1101")
+		setprop ro.vendor.wlan.chip2 qca6390
+		;;
+		"0x1103")
+		setprop ro.vendor.wlan.chip2 qca6490
+		;;
+		*)
+		echo "Not supported device id $secondary_dev"
+		;;
+	esac
+
+	# insmod primary driver module
+	runcon u:r:vendor_modprobe:s0 insmod /vendor/lib/modules/qca_cld3_$(getprop ro.vendor.wlan.chip).ko
+	# insmod secondary driver module
+	runcon u:r:vendor_modprobe:s0 insmod /vendor/lib/modules/qca_cld3_$(getprop ro.vendor.wlan.chip2)_cnss2.ko
+
+	setprop vendor.wlan.driver.status "ok"
+}
+
+
+## Start commands for wlan initialization.
+runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
+
+dev_cnt=`lspci -kn | grep -c cnss_pci`
+case "$dev_cnt" in
+	"1")
+	# Single WiFi
+	enable_single_wifi
+        ;;
+        "2")
+        # Dual WiFi
+	enable_dual_wifi
+	;;
+	*)
+	echo "NO WLAN Chip is enabled"
+	;;
+esac
