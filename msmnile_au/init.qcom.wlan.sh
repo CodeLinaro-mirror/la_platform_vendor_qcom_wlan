@@ -30,7 +30,6 @@
 
 # Function to enable single wifi
 function enable_single_wifi() {
-	setprop ro.vendor.wlan.dual_wlan_enaled false
 	if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 		if lspci -kn |grep cnss_pci|grep ":1100";then
 			setprop ro.vendor.wlan.chip qca6290
@@ -48,6 +47,7 @@ function enable_single_wifi() {
 			setprop ro.vendor.wlan.aware false
 		elif lspci -kn |grep cnss_pci|grep ":1103";then
 			setprop ro.vendor.wlan.chip qca6490
+			setprop ro.vendor.wlan.aware false
 		fi
 	else
 		setprop ro.vendor.wlan.chip wlan
