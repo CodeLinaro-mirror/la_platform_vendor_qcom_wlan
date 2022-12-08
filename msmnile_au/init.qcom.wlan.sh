@@ -48,6 +48,7 @@ function enable_single_wifi() {
 		elif lspci -kn |grep cnss_pci|grep ":1103";then
 			setprop ro.vendor.wlan.chip qca6490
 			setprop ro.vendor.wlan.aware false
+			setprop ro.vendor.wlan.6ghz true
 		fi
 	else
 		setprop ro.vendor.wlan.chip wlan
@@ -92,6 +93,8 @@ function enable_dual_wifi() {
 		;;
 		"0x1103")
 		setprop ro.vendor.wlan.chip qca6490
+		setprop ro.vendor.wlan.aware false
+		setprop ro.vendor.wlan.6ghz true
 		;;
 		*)
 		echo "Not supported device id $primary_dev"
