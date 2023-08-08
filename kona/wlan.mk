@@ -1,7 +1,10 @@
 # Add supported chips for autodetection
-TARGET_WLAN_CHIP := qca6490 qca6390
+TARGET_WLAN_CHIP := qca6390
 
 WLAN_CHIPSET := qca_cld3
+
+# Force chip-specific DLKM name
+# TARGET_MULTI_WLAN := true
 
 #WPA
 WPA := wpa_cli
@@ -52,7 +55,8 @@ PRODUCT_PACKAGES += cnss_utils.ko
 ######## For multiple ko support ########
 
 # WLAN driver configuration file
-ifeq ($(strip $(shell expr $(words $(strip $(TARGET_WLAN_CHIP))) \>= 2)), 1)
+# Copy chip specific INI files if TARGET_WLAN_CHIP is defined
+ifneq ($(TARGET_WLAN_CHIP),)
 PRODUCT_COPY_FILES += \
 		      $(foreach chip, $(TARGET_WLAN_CHIP), \
 		      device/qcom/wlan/kona/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
@@ -63,7 +67,12 @@ PRODUCT_COPY_FILES += \
 endif
 
 
-PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+# Package chip specific ko files if TARGET_WLAN_CHIP is defined.
+ifneq ($(TARGET_WLAN_CHIP),)
+	PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+else
+	PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
+endif
 
 # Override WLAN configurations
 # Usage:
@@ -72,7 +81,6 @@ PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip)
 #  WLAN_CFG_OVERRIDE_<wlan_chip> := WLAN_CFG_1=n WLAN_CFG_2=y WLAN_CFG_3=n
 
 WLAN_CFG_OVERRIDE_qca6390 := CONFIG_CNSS_QCA6390=y
-WLAN_CFG_OVERRIDE_qca6490 := CONFIG_CNSS_QCA6490=y
 
 # Use default_config for all chips. Used with TARGET_WLAN_CHIP.
 WLAN_CFG_USE_DEFAULT := true
@@ -83,7 +91,6 @@ WLAN_CFG_USE_DEFAULT := true
 # driver supports only one chip configuration per build.
 #
 WLAN_KBUILD_OPTIONS_qca6390 := CONFIG_CNSS_QCA6390=y
-WLAN_KBUILD_OPTIONS_qca6490 := CONFIG_CNSS_QCA6490=y
 
 # Enable STA + STA Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_STA := true
