@@ -109,6 +109,15 @@ function enable_dual_wifi() {
 	esac
 
 	setprop vendor.wlan.driver.status "ok"
+
+        #define the sap interface name for primary and secondary wlan
+        setprop ro.vendor.wlan.primary.sap.1stiface "swlan1"
+        setprop ro.vendor.wlan.primary.sap.2ndiface "swlan2"
+        setprop ro.vendor.wlan.secondary.sap.1stiface "swlan3"
+        setprop ro.vendor.wlan.secondary.sap.2ndiface "swlan4"
+
+        #specify the wlan interface name created default by secondary wlan driver module
+        setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
 
 
