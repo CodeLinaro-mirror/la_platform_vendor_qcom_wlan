@@ -46,6 +46,7 @@ function enable_single_wifi() {
 			setprop ro.vendor.wlan.apf false
 			setprop ro.vendor.wlan.11ax false
 			setprop ro.vendor.wlan.aware false
+			echo 1 > /sys/kernel/cnss/recovery
 		elif lspci -kn |grep cnss_pci|grep ":1103";then
 			setprop ro.vendor.wlan.chip qca6490
 		fi
@@ -87,6 +88,7 @@ function enable_dual_wifi() {
 		setprop ro.vendor.wlan.apf false
 		setprop ro.vendor.wlan.11ax false
 		setprop ro.vendor.wlan.aware false
+		echo 1 > /sys/kernel/cnss/recovery
 		;;
 		"0x1103")
 		setprop ro.vendor.wlan.chip qca6490
