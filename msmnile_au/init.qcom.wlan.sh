@@ -52,7 +52,7 @@ function enable_single_wifi() {
 	else
 		setprop ro.vendor.wlan.chip wlan
 	fi
-	# insmod qcacld driver
+	# Load qca_cld* wlan driver module
 	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
 	setprop vendor.wlan.driver.status "ok"
 }
@@ -108,9 +108,9 @@ function enable_dual_wifi() {
 		echo "Not supported device id $secondary_dev"
 		;;
 	esac
-	# insmod primary driver module
+	# Load primary qca_cld* wlan driver module
 	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
-	# insmod secondary driver module
+	# Load secondary qca_cld* wlan driver module
 	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)_cnss2
 	setprop vendor.wlan.driver.status "ok"
 
@@ -124,7 +124,7 @@ function enable_dual_wifi() {
         setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
 
-## Start commands for wlan initialization.
+# Start commands for wlan modules loading
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
 
 dev_cnt=`lspci -kn | grep -c cnss_pci`
