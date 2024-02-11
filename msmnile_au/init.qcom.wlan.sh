@@ -124,9 +124,6 @@ function enable_dual_wifi() {
         setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
 
-# Start commands for wlan modules loading
-runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
-
 dev_cnt=`lspci -kn | grep -c cnss_pci`
 case "$dev_cnt" in
 	"1")
