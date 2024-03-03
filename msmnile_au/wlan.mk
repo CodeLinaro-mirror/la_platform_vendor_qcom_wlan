@@ -108,4 +108,6 @@ WLAN_CFG_OVERRIDE_common_cnss2 := CONFIG_FEATURE_COEX=y CONFIG_QCACLD_FEATURE_BT
 WLAN_CFG_OVERRIDE_qca6390_cnss2 := $(WLAN_CFG_OVERRIDE_common_cnss2)
 WLAN_CFG_OVERRIDE_qca6390_cnss2 += MULTI_IF_NAME=cnss0
 
+WIFI_HAL_INTERFACE_COMBINATIONS += ,{{{STA}, 1}, {{AP_BRIDGED}, 1}, {{P2P}, 1}, {{AP},2}}, \
+                                    {{{STA}, 1}, {{AP}, 3}, {{P2P}, 1}}
 endif

@@ -53,7 +53,8 @@ function enable_single_wifi() {
 	else
 		setprop ro.vendor.wlan.chip wlan
 	fi
-
+	# Load qca_cld* wlan driver module
+	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
 	setprop vendor.wlan.driver.status "ok"
 }
 
@@ -109,12 +110,21 @@ function enable_dual_wifi() {
 		echo "Not supported device id $secondary_dev"
 		;;
 	esac
-
+	# Load primary qca_cld* wlan driver module
+	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
+	# Load secondary qca_cld* wlan driver module
+	runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)_cnss2
 	setprop vendor.wlan.driver.status "ok"
+
+        #define the sap interface name for primary and secondary wlan
+        setprop ro.vendor.wlan.primary.sap.1stiface "swlan1"
+        setprop ro.vendor.wlan.primary.sap.2ndiface "swlan2"
+        setprop ro.vendor.wlan.secondary.sap.1stiface "swlan3"
+        setprop ro.vendor.wlan.secondary.sap.2ndiface "swlan4"
+
+        #specify the wlan interface name created default by secondary wlan driver module
+        setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
-
-
-echo 1 > /sys/kernel/cnss/fs_ready
 
 dev_cnt=`lspci -kn | grep -c cnss_pci`
 case "$dev_cnt" in
