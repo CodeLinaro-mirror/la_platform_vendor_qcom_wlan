@@ -19,19 +19,9 @@ PRODUCT_COPY_FILES += \
 	device/qcom/wlan/msmnile_au/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	device/qcom/wlan/msmnile_au/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
 	device/qcom/wlan/msmnile_au/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
+	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
+	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
         frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
-
-
-# Suppose if folder 'external/vsomip' exist, then image support Wi-Fi remote control
-# As aware and RTT features are not supported in Wi-Fi remote control
-# need to disable those features otherwise aware-service/rtt-service in framework will fail to initialize
-ifeq ("$(wildcard external/boost)", )
-ifeq ("$(wildcard external/vsomeip)", )
-PRODUCT_COPY_FILES += \
-       frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-       frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
-endif
-endif
 
 ######## For multiple ko support ########
 
