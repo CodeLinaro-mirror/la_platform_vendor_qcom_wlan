@@ -45,10 +45,22 @@ if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 		setprop ro.vendor.wlan.aware false
 	elif lspci -kn |grep cnss_pci|grep ":1103";then
 		setprop ro.vendor.wlan.chip qca6490
+		setprop ro.vendor.wlan.6ghz true
 	fi
 else
 	setprop ro.vendor.wlan.chip wlan
 fi
+
+soc_id=`cat /sys/devices/soc0/soc_id`
+case "$soc_id" in
+	#SA8155P, SA8155, SA6155P, SA6155, SA8195P
+	"367" | "362" | "377" | "384" | "405")
+	echo 1 > /sys/kernel/cnss/recovery
+	;;
+	*)
+	echo "needn't to enable ssr"
+	;;
+esac
 
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
 setprop vendor.wlan.driver.status "ok"
