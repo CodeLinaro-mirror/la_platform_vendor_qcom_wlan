@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+-->
+<WCN_VenTool>
+	<!-- QCA_NL80211_VENDOR_SUBCMD_PEER_CFR_CAPTURE_CFG = 173 -->
+	<VendorCmd name="CFR_START" ID="173">
+		<Attribute name="PEER_MAC_ADDR" ID="1" TYPE="MAC_ADDR"/>
+		<Attribute name="PEER_CFR_ENABLE" ID="2" TYPE="flag"/>
+		<Attribute name="CFR_BANDWIDTH" ID="3" TYPE="u8"/>
+		<Attribute name="CFR_PERIODICITY" ID="4" TYPE="u32"/>
+		<Attribute name="CFR_METHOD" ID="5" TYPE="u8"/>
+		<Attribute name="PERIODIC_CFR_ENABLE" ID="6" TYPE="flag"/>
+		<Attribute name="CFR_VERSION" ID="7" TYPE="u8"/>
+		<Attribute name="GROUP_BITMAP" ID="8" TYPE="u32"/>
+		<Attribute name="CFR_CAPTURE_TYPE" ID="11" TYPE="U32"/>
+		<Attribute name="CFR_GROUP_TABLE" ID="14" TYPE="NESTED" ATTR_MAX="25">
+			<Attribute name="CFR_GROUP_NUMBER" ID="16" TYPE="u32"/>
+			<Attribute name="CFR_GROUP_MGMT_FILTER" ID="23" TYPE="u32"/>
+			<Attribute name="CFR_GROUP_TA" ID="17" TYPE="mac_addr"/>
+			<Attribute name="CFR_GROUP_TA_MASK" ID="19" TYPE="mac_addr"/>
+		</Attribute>
+    </VendorCmd>
+</WCN_VenTool>
