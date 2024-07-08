@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+-->
+<WCN_VenTool>
+    <VendorCmd name="SET_WIFI_CONFIGURATION" ID="74">
+		<Attribute name="QCA_WLAN_VENDOR_ATTR_CONFIG_EHT_MLO_ACTIVE_LINKS" ID="92" TYPE="NESTED" ATTR_MAX="3">
+			<Attribute name="NL80211_ATTR_MAC" ID="6" TYPE="mac_addr"/>
+			<Attribute name="NL80211_ATTR_MAC" ID="6" TYPE="mac_addr"/>
+		</Attribute>
+    </VendorCmd>
+</WCN_VenTool>

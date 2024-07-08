@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+-->
+<WCN_VenTool>
+    <VendorCmd name="SET_WIFI_CONFIGURATION" ID="169">
+        <Attribute name="QCA_WLAN_VENDOR_ATTR_WIFI_TEST_CONFIG_11BE_EMLSR_MODE" ID="58" TYPE="U8"/>
+    </VendorCmd>
+</WCN_VenTool>
