@@ -103,3 +103,7 @@ TARGET_USES_NO_DMS_QMI_CLIENT := true
 
 #Clear wlan fw cal file on start up
 TARGET_CAL_DATA_CLEAR := true
+
+ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
+${call soong_config_set,wifi,libpasn_support,false}
+endif
