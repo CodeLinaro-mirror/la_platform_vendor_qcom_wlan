@@ -54,16 +54,7 @@ else
 	setprop ro.vendor.wlan.chip wlan
 fi
 
-soc_id=`cat /sys/devices/soc0/soc_id`
-case "$soc_id" in
-	#SA8155P, SA8155, SA6155P, SA6155, SA8195P
-	"367" | "362" | "377" | "384" | "405")
-	echo 1 > /sys/kernel/cnss/recovery
-	;;
-	*)
-	echo "needn't to enable ssr"
-	;;
-esac
+echo 1 > /sys/kernel/cnss/recovery
 
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qca_cld3_$(getprop ro.vendor.wlan.chip)
 setprop vendor.wlan.driver.status "ok"
