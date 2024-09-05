@@ -1,9 +1,14 @@
 WLAN_CHIPSET := qca_cld3
 
+# Force chip-specific DLKM name
+TARGET_MULTI_WLAN := true
+
+TARGET_WLAN_CHIP := wcn3980 qca6174
+
 #WPA
 WPA := wpa_cli
 
-PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
+PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += ctrlapp_dut
 PRODUCT_PACKAGES += $(WPA)
@@ -12,7 +17,10 @@ PRODUCT_PACKAGES += $(WPA)
 WIFI_HIDL_FEATURE_AWARE := true
 
 PRODUCT_COPY_FILES += \
-	device/qcom/wlan/trinket/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
+	$(foreach chip, $(TARGET_WLAN_CHIP), \
+		device/qcom/wlan/trinket/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+
+PRODUCT_COPY_FILES += \
 	device/qcom/wlan/trinket/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	device/qcom/wlan/trinket/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
 	device/qcom/wlan/trinket/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
@@ -20,9 +28,18 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
         frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 
-WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_QCA_CLD_WLAN_PROFILE=qca6174 \
-				CONFIG_CLD_HL_SDIO_CORE=y \
-				KERNEL_SUPPORTS_NESTED_COMPOSITES=n
+
+PRODUCT_PACKAGES += icnss2.ko
+PRODUCT_PACKAGES += wlan_firmware_service.ko
+PRODUCT_PACKAGES += cnss_prealloc.ko
+PRODUCT_PACKAGES += cnss_utils.ko
+PRODUCT_PACKAGES += cnss_nl.ko
+
+WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_ICNSS2=m \
+		CONFIG_ICNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m \
+		CONFIG_ICNSS2_DEBUG=y CONFIG_CNSS_GENL=m \
+		CONFIG_WCNSS_MEM_PRE_ALLOC=m CONFIG_CNSS_UTILS=m \
+		KERNEL_SUPPORTS_NESTED_COMPOSITES=n
 
 # WLAN specific aosp flag
 TARGET_USES_AOSP_FOR_WLAN := false
