@@ -26,14 +26,16 @@ PRODUCT_COPY_FILES += \
 	device/qcom/wlan/trinket/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
-        frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
-
+        frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
+	device/qcom/wlan/trinket/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh
 
 PRODUCT_PACKAGES += icnss2.ko
 PRODUCT_PACKAGES += wlan_firmware_service.ko
 PRODUCT_PACKAGES += cnss_prealloc.ko
 PRODUCT_PACKAGES += cnss_utils.ko
 PRODUCT_PACKAGES += cnss_nl.ko
+
+PRODUCT_PACKAGES += init.qcom.wlan.sh
 
 WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_ICNSS2=m \
 		CONFIG_ICNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m \
