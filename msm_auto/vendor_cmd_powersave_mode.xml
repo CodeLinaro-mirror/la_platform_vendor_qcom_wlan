@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+-->
+<WCN_VenTool>
+	<!-- QCA_NL80211_VENDOR_SUBCMD_SET_WIFI_CONFIGURATION = 74 -->
+	<VendorCmd name="WIFI_SET" ID="74">
+		<Attribute name="OPM" ID="71" TYPE="u8"/>
+		<Attribute name="ITO" ID="101" TYPE="u16"/>
+		<Attribute name="WAKE_INTERVAL" ID="102" TYPE="u16"/>
+	</VendorCmd>
+</WCN_VenTool>
