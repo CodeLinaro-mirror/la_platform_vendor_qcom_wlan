@@ -49,6 +49,9 @@ if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 	elif lspci -kn |grep cnss_pci|grep ":1107";then
 		setprop ro.vendor.wlan.chip kiwi_v2
 		setprop ro.vendor.wlan.6ghz true
+	else
+		setprop ro.vendor.wlan.hal.rpc true
+		setprop ro.vendor.wlan.6ghz true
 	fi
 else
 	setprop ro.vendor.wlan.chip wlan
