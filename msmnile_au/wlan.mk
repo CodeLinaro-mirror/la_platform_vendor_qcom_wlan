@@ -28,17 +28,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_WLAN_DRIVER_ALWAYS_LOADED := true
 
 # WLAN driver configuration file
-ifeq ($(strip $(shell expr $(words $(strip $(TARGET_WLAN_CHIP))) \>= 1)), 1)
+ifneq ($(strip $(TARGET_WLAN_CHIP)),)
 PRODUCT_COPY_FILES += \
-$(foreach chip, $(TARGET_WLAN_CHIP), \
-    device/qcom/wlan/msmnile_au/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+    $(call product-copy-files-by-pattern,device/qcom/wlan/msmnile_au/WCNSS_qcom_cfg_%.ini,$(TARGET_COPY_OUT_VENDOR)/etc/wifi/%/WCNSS_qcom_cfg.ini,$(TARGET_WLAN_CHIP))
 else
 TARGET_WLAN_CHIP := wlan
 PRODUCT_COPY_FILES += \
     device/qcom/wlan/msmnile_au/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 endif
 
-PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+PRODUCT_PACKAGES += $(patsubst %, $(WLAN_CHIPSET)_%.ko, $(TARGET_WLAN_CHIP))
 
 ifeq ($(PRODUCT_WLAN_DRIVER_ALWAYS_LOADED), true)
 # this script will set the property 'ro.vendor.wlan.chip' when boot completed,
@@ -107,6 +106,4 @@ TARGET_USES_NO_DMS_QMI_CLIENT := true
 #Clear wlan fw cal file on start up
 TARGET_CAL_DATA_CLEAR := true
 
-ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
 ${call soong_config_set,wifi,libpasn_support,false}
-endif
