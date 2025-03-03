@@ -17,7 +17,7 @@
 #
 #
 
-TARGET_WLAN_CHIP := qca6750
+TARGET_WLAN_CHIP := qca6750 peach_v2 wcn6450
 
 WLAN_CHIPSET := qca_cld3
 
@@ -125,6 +125,17 @@ WLAN_MODULES_VENDOR += cnss_utils.ko
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
+
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/qcom/wlan \
+    hardware/qcom/wlan/qcwcn
+
+ifeq ($(strip $(CONFIG_MAC_PRIVACY_LOGGING)),true)
+	$(call soong_config_set,wifi,mac_privacy_logging,true)
+endif
+ifeq ($(strip $(TARGET_SUPPORTS_WEARABLES)),true)
+	$(call soong_config_set,target_supports_wearables,true)
+endif
 
 ifneq ($(TARGET_WLAN_CHIP),)
 
