@@ -41,9 +41,13 @@ PRODUCT_PACKAGES += wificfrtool
 PRODUCT_PACKAGES += ctrlapp_dut
 PRODUCT_PACKAGES += libwpa_drv_oem_hmd
 PRODUCT_PACKAGES += wifimyftm
+PRODUCT_PACKAGES += qtiwifi
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
+
+#Enable rc file from wpa_supplicant project
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Copy chip specific INI files if TARGET_WLAN_CHIP is defined
 ifneq ($(TARGET_WLAN_CHIP),)
