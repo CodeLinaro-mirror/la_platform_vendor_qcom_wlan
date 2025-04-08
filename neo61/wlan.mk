@@ -37,7 +37,9 @@ endif
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += qsh_wifi_test
 WLAN_MODULES_VENDOR += init.vendor.wlan.rc
+ifneq ($(TARGET_MXR_VARIENT),true)
 WLAN_MODULES_VENDOR += wificfrtool
+endif
 WLAN_MODULES_VENDOR += ctrlapp_dut
 WLAN_MODULES_VENDOR += libwpa_drv_oem
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
