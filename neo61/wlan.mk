@@ -149,3 +149,7 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	# device specific config file from driver itself instead of
 	# here.
 endif
+
+ifeq ($(filter $(PLATFORM_VERSION),14 UpsideDownCake 15 VanillaIceCream 16 Baklava),$(PLATFORM_VERSION))
+    $(call soong_config_set,wifi,wifi_driver_android_version,android_u_above)
+endif
