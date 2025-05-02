@@ -29,10 +29,12 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
+ifneq ($(TARGET_BASE_PRODUCT),neo_custom)
 ifneq ($(TARGET_WLAN_CHIP),)
 	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
 else
 	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
+endif
 endif
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += qsh_wifi_test
@@ -133,12 +135,14 @@ ifeq ($(TARGET_KERNEL_DLKM_SECURE_MSM_OVERRIDE), true)
 WLAN_PLATFORM_KBUILD_OPTIONS += CONFIG_CNSS_HW_SECURE_DISABLE=y
 endif
 
+ifneq ($(TARGET_BASE_PRODUCT),neo_custom)
 WLAN_MODULES_VENDOR += cnss2.ko
 WLAN_MODULES_VENDOR += cnss_plat_ipc_qmi_svc.ko
 WLAN_MODULES_VENDOR += wlan_firmware_service.ko
 WLAN_MODULES_VENDOR += cnss_nl.ko
 WLAN_MODULES_VENDOR += cnss_prealloc.ko
 WLAN_MODULES_VENDOR += cnss_utils.ko
+endif
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
