@@ -69,10 +69,8 @@ WLAN_MODULES_VENDOR += libwifi-hal-qcom
 WLAN_MODULES_VENDOR += lib_driver_cmd_qcwcn
 WLAN_MODULES_VENDOR += libwpa_client
 WLAN_MODULES_VENDOR += wpa_supplicant
-ifneq ($(TARGET_BASE_PRODUCT),neo_custom)
 WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
-endif
 WLAN_MODULES_VENDOR += hs20-osu-client
 
 #Enable WIFI AWARE FEATURE
