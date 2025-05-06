@@ -162,6 +162,7 @@ PRODUCT_PACKAGES += libwifi-hal
 
 ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
 PRODUCT_PACKAGES_DEBUG += $(WLAN_MODULES_VENDOR_DEBUG)
+PRODUCT_PACKAGES += wcnss_qcom_cfg_ini_symlink
 endif
 
 ifneq ($(TARGET_WLAN_CHIP),)
