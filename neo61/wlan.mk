@@ -23,6 +23,9 @@ WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
 TARGET_MULTI_WLAN := true
+ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
+WLAN_MODULES_VENDOR_DEBUG :=
+endif
 
 #WPA
 WPA := wpa_cli
@@ -49,7 +52,11 @@ WLAN_MODULES_VENDOR += libtlvutil
 WLAN_MODULES_VENDOR += libtlv2
 WLAN_MODULES_VENDOR += libdpp_manager
 WLAN_MODULES_VENDOR += dppdaemon
+ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
+WLAN_MODULES_VENDOR_DEBUG += wifimyftm
+else
 WLAN_MODULES_VENDOR += wifimyftm
+endif
 WLAN_MODULES_VENDOR += myftm
 WLAN_MODULES_VENDOR += ftmdaemon
 WLAN_MODULES_VENDOR += wdsdaemon
@@ -142,6 +149,10 @@ WLAN_MODULES_VENDOR += cnss_utils.ko
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
+
+ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
+PRODUCT_PACKAGES_DEBUG += $(WLAN_MODULES_VENDOR_DEBUG)
+endif
 
 ifneq ($(TARGET_WLAN_CHIP),)
 
