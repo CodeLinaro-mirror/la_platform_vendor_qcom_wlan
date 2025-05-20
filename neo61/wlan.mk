@@ -44,7 +44,9 @@ ifneq ($(TARGET_MXR_VARIENT),true)
 WLAN_MODULES_VENDOR += wificfrtool
 endif
 WLAN_MODULES_VENDOR += ctrlapp_dut
+ifneq ($(TARGET_BASE_PRODUCT),neo_custom)
 WLAN_MODULES_VENDOR += libwpa_drv_oem
+endif
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
 WLAN_MODULES_VENDOR += libtcmd
 WLAN_MODULES_VENDOR += libtestcmd6174
