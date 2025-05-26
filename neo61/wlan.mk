@@ -37,7 +37,9 @@ endif
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += qsh_wifi_test
 WLAN_MODULES_VENDOR += init.vendor.wlan.rc
+ifneq ($(TARGET_MXR_VARIENT),true)
 WLAN_MODULES_VENDOR += wificfrtool
+endif
 WLAN_MODULES_VENDOR += ctrlapp_dut
 WLAN_MODULES_VENDOR += libwpa_drv_oem
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
@@ -67,8 +69,10 @@ WLAN_MODULES_VENDOR += libwifi-hal-qcom
 WLAN_MODULES_VENDOR += lib_driver_cmd_qcwcn
 WLAN_MODULES_VENDOR += libwpa_client
 WLAN_MODULES_VENDOR += wpa_supplicant
+ifneq ($(TARGET_MXR_VARIENT),true)
 WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
+endif
 WLAN_MODULES_VENDOR += hs20-osu-client
 
 #Enable WIFI AWARE FEATURE
@@ -148,4 +152,8 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	# Note: Idealy, device specific flags should be enabled from
 	# device specific config file from driver itself instead of
 	# here.
+endif
+
+ifeq ($(filter $(PLATFORM_VERSION),14 UpsideDownCake 15 VanillaIceCream 16 Baklava),$(PLATFORM_VERSION))
+    $(call soong_config_set,wifi,wifi_driver_android_version,android_u_above)
 endif
