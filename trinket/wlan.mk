@@ -12,9 +12,13 @@ PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip)
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += ctrlapp_dut
 PRODUCT_PACKAGES += $(WPA)
+PRODUCT_PACKAGES += qtiwifi
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
+
+#Enable rc file from wpa_supplicant project
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 PRODUCT_COPY_FILES += \
 	$(foreach chip, $(TARGET_WLAN_CHIP), \
