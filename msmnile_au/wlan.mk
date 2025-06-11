@@ -64,6 +64,7 @@ PRODUCT_PACKAGES += cnss_plat_ipc_qmi_svc.ko
 PRODUCT_PACKAGES += wlan_firmware_service.ko
 PRODUCT_PACKAGES += cnss_nl.ko
 PRODUCT_PACKAGES += cnss_utils.ko
+PRODUCT_PACKAGES += cnss_prealloc.ko
 
 # AOSP: interface combinations
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}, {{P2P}, 1}},\
