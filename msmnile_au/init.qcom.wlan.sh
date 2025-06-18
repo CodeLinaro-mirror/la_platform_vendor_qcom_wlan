@@ -28,8 +28,15 @@
 #
 #
 
+if [ -f /sys/devices/soc0/machine ]; then
+    soc_platform=`cat /sys/devices/soc0/machine`
+fi
+
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
-runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
+
+if [ "$soc_platform" == "SA_GUNYAH_VM" ]; then
+    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
+fi
 
 if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 	if lspci -kn |grep cnss_pci|grep ":1100";then
