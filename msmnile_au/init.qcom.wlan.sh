@@ -36,6 +36,7 @@ runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cns
 
 if [ "$soc_platform" == "SA_GUNYAH_VM" ]; then
     runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
+    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qrtr-mhi
 fi
 
 if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
