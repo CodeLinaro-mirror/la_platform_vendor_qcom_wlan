@@ -1,4 +1,4 @@
-ifneq ($(TARGET_MXR_VARIENT),true)
+ifneq ($(TARGET_BASE_PRODUCT),neo_custom)
 ifneq ($(TARGET_WLAN_CHIP),)
 	BOARD_VENDOR_KERNEL_MODULES += $(foreach chip, $(TARGET_WLAN_CHIP), $(KERNEL_MODULES_OUT)/$(WLAN_CHIPSET)_$(chip).ko)
 else
