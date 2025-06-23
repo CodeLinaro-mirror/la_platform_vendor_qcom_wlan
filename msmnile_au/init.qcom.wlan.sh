@@ -32,8 +32,6 @@ if [ -f /sys/devices/soc0/machine ]; then
     soc_platform=`cat /sys/devices/soc0/machine`
 fi
 
-runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
-
 if [ "$soc_platform" == "SA_GUNYAH_VM" ]; then
     runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
     runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qrtr-mhi
