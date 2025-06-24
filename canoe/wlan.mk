@@ -21,6 +21,7 @@
 $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
+
 TARGET_WLAN_CHIP := kiwi_v2 peach_v2 wcn7750
 WLAN_CHIPSET := qca_cld3
 
@@ -48,15 +49,13 @@ WLAN_MODULES_VENDOR += vendor_cmd_tool
 
 # Setting this flag to enable HY11 bins inclusion. keep this line here as common-tools is hy11 shippable
 $(call soong_config_set,qtiwlan,hy11,true)
-$(call soong_config_set,qtiwlan,hwasan,true)
 # Add binaries under this, which needs to be delivered to HY11 builds
 WLAN_MODULES_VENDOR += wifi_qos_daemon
 endif
 
-#ifneq (,$(filter hwaddress,$(SANITIZE_TARGET)))
-#$(call soong_config_set,qtiwlan,hwasan,true)
-#$(warning "using SOONG_CONFIG_qtiwlan_hwasan")
-#endif
+ifneq (,$(filter hwaddress,$(SANITIZE_TARGET)))
+$(call soong_config_set,qtiwlan,hwasan,true)
+endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/utils),)
 WLAN_MODULES_VENDOR += qsh_wifi_test
