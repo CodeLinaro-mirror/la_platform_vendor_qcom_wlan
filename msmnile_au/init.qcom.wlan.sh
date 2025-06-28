@@ -28,6 +28,17 @@
 #
 #
 
+if [ -f /sys/devices/soc0/machine ]; then
+    soc_platform=`cat /sys/devices/soc0/machine`
+fi
+
+runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules cnss2
+
+if [ "$soc_platform" == "SA_GUNYAH_VM" ]; then
+    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
+    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qrtr-mhi
+fi
+
 if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 	if lspci -kn |grep cnss_pci|grep ":1100";then
 		setprop ro.vendor.wlan.chip qca6290
@@ -48,6 +59,9 @@ if [ ! -f /vendor/lib/modules/qca_cld3_wlan.ko ]; then
 		setprop ro.vendor.wlan.6ghz true
 	elif lspci -kn |grep cnss_pci|grep ":1107";then
 		setprop ro.vendor.wlan.chip kiwi_v2
+		setprop ro.vendor.wlan.6ghz true
+	else
+		setprop ro.vendor.wlan.hal.rpc true
 		setprop ro.vendor.wlan.6ghz true
 	fi
 else
