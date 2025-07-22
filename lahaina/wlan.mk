@@ -18,7 +18,7 @@
 #
 #
 
-TARGET_WLAN_CHIP := qca6750 qca6490
+TARGET_WLAN_CHIP := wlan qca6750 qca6490
 
 WLAN_CHIPSET := qca_cld3
 
@@ -29,12 +29,6 @@ TARGET_MULTI_WLAN := true
 WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
 
-# Package chip specific ko files if TARGET_WLAN_CHIP is defined.
-ifneq ($(TARGET_WLAN_CHIP),)
-	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
-else
-	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
-endif
 ifneq ($(wildcard $(QCPATH)/wlan/common-tools),)
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += ctrlapp_dut
@@ -51,6 +45,7 @@ WLAN_MODULES_VENDOR += athdiag
 WLAN_MODULES_VENDOR += hal_proxy_daemon
 WLAN_MODULES_VENDOR += spectraltool
 WLAN_MODULES_VENDOR += pktlogconf
+WLAN_MODULES_VENDOR += lowirpcd
 endif
 ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-ss),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem
@@ -151,6 +146,18 @@ WLAN_MODULES_VENDOR += cnss_utils.ko
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
+
+
+# Use default_config for all chips. Used with TARGET_WLAN_CHIP.
+WLAN_CFG_USE_DEFAULT := true
+
+# Inject Kbuild options per chip
+#
+# Select proper chip configuration for building WLAN driver module. Currently
+# driver supports only one chip configuration per build.
+#
+WLAN_KBUILD_OPTIONS_wlan := CONFIG_CNSS_QCA6490=y
+WLAN_KBUILD_OPTIONS_qca6750 := CONFIG_CNSS_QCA6750=y
 
 ifneq ($(TARGET_WLAN_CHIP),)
 
