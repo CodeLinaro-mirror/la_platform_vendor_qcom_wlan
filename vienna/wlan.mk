@@ -43,6 +43,7 @@ WLAN_MODULES_VENDOR += libwpa_client
 WLAN_MODULES_VENDOR += wpa_supplicant
 WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
+WLAN_MODULES_VENDOR += android.hardware.wifi-service
 WLAN_MODULES_VENDOR += $(WPA)
 
 #Enable rc file from wpa_supplicant
@@ -84,6 +85,7 @@ WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_ICNSS2=m \
 				CONFIG_SLATE_MODULE_ENABLED=y
 
 #WLAN_MODULES_VENDOR += WifiResTarget
+WLAN_MODULES_VENDOR += ServiceWifiResourcesTarget_Vendor
 
 PRODUCT_PACKAGES +=$(WLAN_MODULES_VENDOR)
 
