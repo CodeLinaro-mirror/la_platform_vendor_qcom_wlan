@@ -140,14 +140,8 @@ function enable_dual_wifi() {
 	setprop vendor.wlan.driver.status "ok"
 }
 
-if [ -f /sys/devices/soc0/machine ]; then
-    soc_platform=`cat /sys/devices/soc0/machine`
-fi
-
-if [ "$soc_platform" == "SA_GUNYAH_VM" ]; then
-    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
-    runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qrtr-mhi
-fi
+runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
+runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules qrtr-mhi
 
 dev_cnt=`lspci -kn | grep -c cnss_pci`
 case "$dev_cnt" in
