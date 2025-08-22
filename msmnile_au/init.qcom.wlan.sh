@@ -138,6 +138,15 @@ function enable_dual_wifi() {
 	runcon u:r:vendor_modprobe:s0 insmod /vendor/lib/modules/qca_cld3_$(getprop ro.vendor.wlan.chip2)_cnss2.ko
 
 	setprop vendor.wlan.driver.status "ok"
+
+	#define the sap interface name for primary and secondary wlan
+	setprop ro.vendor.wlan.primary.sap.1stiface "swlan1"
+	setprop ro.vendor.wlan.primary.sap.2ndiface "swlan2"
+	setprop ro.vendor.wlan.secondary.sap.1stiface "swlan3"
+	setprop ro.vendor.wlan.secondary.sap.2ndiface "swlan4"
+
+	#specify the wlan interface name created default by secondary wlan driver module
+	setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
 
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam
