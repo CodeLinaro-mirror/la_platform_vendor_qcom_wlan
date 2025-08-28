@@ -120,7 +120,8 @@ ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
 ${call soong_config_set,wifi,libpasn_support,false}
 endif
 
-#This will be defined if TARGET_SUPPORT_DUAL_WLAN is true
-ifdef WIFI_DRIVER_STATE_CTRL_PARAM_SECONDARY
-$(call soong_config_set,wifi,driver_state_ctrl_param_secondary,$(WIFI_DRIVER_STATE_CTRL_PARAM_SECONDARY))
+#set driver_state_ctrl_param_secondary to "/dev/wlan2" if support dual wlan
+#actually WIFI_DRIVER_STATE_CTRL_PARAM_SECONDARY := "/dev/wlan2"
+ifeq ($(strip $(TARGET_SUPPORT_DUAL_WLAN)),true)
+$(call soong_config_set,wifi,driver_state_ctrl_param_secondary, "/dev/wlan2")
 endif
