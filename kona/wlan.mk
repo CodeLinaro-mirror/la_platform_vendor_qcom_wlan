@@ -11,6 +11,7 @@ WPA := wpa_cli
 
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += ctrlapp_dut
+PRODUCT_PACKAGES += wificfrtool
 PRODUCT_PACKAGES += $(WPA)
 
 #Enable WIFI AWARE FEATURE
