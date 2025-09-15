@@ -45,6 +45,8 @@ endif
 
 PRODUCT_PACKAGES += $(patsubst %, $(WLAN_CHIPSET)_%.ko, $(TARGET_WLAN_CHIP))
 
+PRODUCT_PACKAGES += wificfrtool
+
 ifeq ($(PRODUCT_WLAN_DRIVER_ALWAYS_LOADED), true)
 # this script will set the property 'ro.vendor.wlan.chip' when boot completed,
 # which will trigger wlan driver loading.
@@ -62,6 +64,7 @@ WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_CNSS2=m \
 				CONFIG_CNSS_PLAT_IPC_QMI_SVC=m \
 				CONFIG_CNSS_GENL=m CONFIG_CNSS_UTILS=m \
 				CONFIG_CNSS2_CONDITIONAL_POWEROFF=y \
+				CONFIG_WCNSS_MEM_PRE_ALLOC=m \
 				CONFIG_CNSS2_ENUM_WITH_LOW_SPEED=y
 
 PRODUCT_PACKAGES += cnss2.ko
@@ -115,4 +118,10 @@ TARGET_CAL_DATA_CLEAR := true
 
 ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
 ${call soong_config_set,wifi,libpasn_support,false}
+endif
+
+#set driver_state_ctrl_param_secondary to "/dev/wlan2" if support dual wlan
+#actually WIFI_DRIVER_STATE_CTRL_PARAM_SECONDARY := "/dev/wlan2"
+ifeq ($(strip $(TARGET_SUPPORT_DUAL_WLAN)),true)
+$(call soong_config_set,wifi,driver_state_ctrl_param_secondary, "/dev/wlan2")
 endif
