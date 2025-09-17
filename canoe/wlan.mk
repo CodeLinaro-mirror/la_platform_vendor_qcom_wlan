@@ -51,6 +51,7 @@ WLAN_MODULES_VENDOR += vendor_cmd_tool
 $(call soong_config_set,qtiwlan,hy11,true)
 # Add binaries under this, which needs to be delivered to HY11 builds
 WLAN_MODULES_VENDOR += wifi_qos_daemon
+WLAN_MODULES_VENDOR += libtensorflowlite_c_qcom
 WLAN_MODULES_VENDOR += AE_0_model.tflite
 WLAN_MODULES_VENDOR += AE_1_model.tflite
 WLAN_MODULES_VENDOR += AE_2_model.tflite
@@ -93,6 +94,7 @@ endif
 ifneq ($(wildcard $(QCPATH)/wlan/noship/wifi_qos_daemon),)
 WLAN_MODULES_VENDOR += wifi_qos_daemon
 WLAN_MODULES_VENDOR += libtxpbcsv
+WLAN_MODULES_VENDOR += libtensorflowlite_c_qcom
 WLAN_MODULES_VENDOR += AE_0_model.tflite
 WLAN_MODULES_VENDOR += AE_1_model.tflite
 WLAN_MODULES_VENDOR += AE_2_model.tflite
