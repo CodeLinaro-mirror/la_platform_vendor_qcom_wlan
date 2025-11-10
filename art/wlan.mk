@@ -1,3 +1,4 @@
+include device/qcom/wlan//vendor_board_common.mk
 #
 # TARGET_WLAN_CHIP directs QCACLD driver to be built for that particular
 # chipset(s). It can take multiple supported chipsets. Please refer QCACLD
@@ -10,7 +11,7 @@
 # e.g. TARGET_WLAN_CHIP := kiwi_v2
 #	builds qca_cld3_kiwi_v2.ko
 #
-#	Copies configuration files from device/qcom/wlan/canoe/ to
+#	Copies configuration files from device/qcom/wlan/art/ to
 #	$(TARGET_COPY_OUT_VENDOR)/etc/wifi/ like,
 #
 #	WCNSS_qcom_cfg_kiwi_v2.ini -> kiwi_v2/WCNSS_qcom_cfg.ini
@@ -22,7 +23,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := kiwi_v2 peach_v2 wcn7750
+TARGET_WLAN_CHIP := peach_v2 fig
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -198,17 +199,17 @@ WIFI_HIDL_FEATURE_AWARE := true
 ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
-			      device/qcom/wlan/canoe/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+			      device/qcom/wlan/art/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
 else
 	PRODUCT_COPY_FILES += \
-			      device/qcom/wlan/canoe/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+			      device/qcom/wlan/art/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
 endif
 
 PRODUCT_COPY_FILES += \
-				device/qcom/wlan/canoe/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-				device/qcom/wlan/canoe/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-				device/qcom/wlan/canoe/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
+				device/qcom/wlan/art/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+				device/qcom/wlan/art/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+				device/qcom/wlan/art/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
