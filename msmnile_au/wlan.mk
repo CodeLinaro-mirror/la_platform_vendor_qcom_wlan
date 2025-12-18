@@ -125,3 +125,7 @@ endif
 ifeq ($(strip $(TARGET_SUPPORT_DUAL_WLAN)),true)
 $(call soong_config_set,wifi,driver_state_ctrl_param_secondary, "/dev/wlan2")
 endif
+
+SOONG_CONFIG_NAMESPACES += wpa_supplicant_8
+SOONG_CONFIG_wpa_supplicant_8 += enable_vendor_aidl
+SOONG_CONFIG_wpa_supplicant_8_enable_vendor_aidl := true
