@@ -96,3 +96,8 @@ TARGET_USES_NO_DMS_QMI_CLIENT := true
 
 #Clear wlan fw cal file on start up
 TARGET_CAL_DATA_CLEAR := true
+
+SOONG_CONFIG_NAMESPACES += wpa_supplicant_8
+SOONG_CONFIG_wpa_supplicant_8 += enable_vendor_aidl
+SOONG_CONFIG_wpa_supplicant_8_enable_vendor_aidl := true
+
