@@ -10,7 +10,7 @@
 # e.g. TARGET_WLAN_CHIP := kiwi_v2
 #	builds qca_cld3_kiwi_v2.ko
 #
-#	Copies configuration files from device/qcom/wlan/chora/ to
+#	Copies configuration files from device/qcom/wlan/malabar/ to
 #	$(TARGET_COPY_OUT_VENDOR)/etc/wifi/ like,
 #
 #	WCNSS_qcom_cfg_kiwi_v2.ini -> kiwi_v2/WCNSS_qcom_cfg.ini
@@ -22,7 +22,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := wcn6450 wcn7750
+TARGET_WLAN_CHIP := adrastea
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -33,11 +33,11 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
-ifneq ($(TARGET_WLAN_CHIP),)
-	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
-else
-	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
-endif
+#ifneq ($(TARGET_WLAN_CHIP),)
+	#WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+#else
+	#WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
+#endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/common-tools),)
 WLAN_MODULES_VENDOR += wifilearner
@@ -46,6 +46,7 @@ WLAN_MODULES_VENDOR += libdpp_manager
 WLAN_MODULES_VENDOR += dppdaemon
 WLAN_MODULES_VENDOR += cnss_diag
 WLAN_MODULES_VENDOR += vendor_cmd_tool
+
 endif
 
 ifneq (,$(filter hwaddress,$(SANITIZE_TARGET)))
@@ -103,17 +104,17 @@ WIFI_HIDL_FEATURE_AWARE := true
 ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
-			      device/qcom/wlan/chora/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+			      device/qcom/wlan/malabar/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
 else
 	PRODUCT_COPY_FILES += \
-			      device/qcom/wlan/chora/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+			      device/qcom/wlan/malabar/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
 endif
 
 PRODUCT_COPY_FILES += \
-				device/qcom/wlan/chora/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-				device/qcom/wlan/chora/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-				device/qcom/wlan/chora/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
+				device/qcom/wlan/malabar/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+				device/qcom/wlan/malabar/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+				device/qcom/wlan/malabar/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
@@ -121,9 +122,15 @@ PRODUCT_COPY_FILES += \
 # Enable STA + SAP Concurrency.
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
+# Enable SAP + SAP Feature.
+QC_WIFI_HIDL_FEATURE_DUAL_AP := true
+
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.aware.interface=wifi-aware0
+
+# Enable STA + STA Feature.
+QC_WIFI_HIDL_FEATURE_DUAL_STA := true
 
 #Disable cnss-daemon QMI communication with FW
 TARGET_USES_NO_FW_QMI_CLIENT := true
@@ -131,6 +138,6 @@ TARGET_USES_NO_FW_QMI_CLIENT := true
 #Disable DMS MAC address feature in cnss-daemon
 TARGET_USES_NO_DMS_QMI_CLIENT := true
 
-
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
+
