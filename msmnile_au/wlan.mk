@@ -1,3 +1,5 @@
+include $(strip $(QCPATH)/common/$(TARGET_BOARD_PLATFORM)$(TARGET_BOARD_SUFFIX)/BoardConfigVendor.mk)
+
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -23,7 +25,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 
 #Include WiFi RTT service only when location is defined on the device
-ifneq ($(BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE),)
+ifneq ($(BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE), false)
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
 endif
@@ -125,3 +127,7 @@ endif
 ifeq ($(strip $(TARGET_SUPPORT_DUAL_WLAN)),true)
 $(call soong_config_set,wifi,driver_state_ctrl_param_secondary, "/dev/wlan2")
 endif
+
+SOONG_CONFIG_NAMESPACES += wpa_supplicant_8
+SOONG_CONFIG_wpa_supplicant_8 += enable_vendor_aidl
+SOONG_CONFIG_wpa_supplicant_8_enable_vendor_aidl := true
