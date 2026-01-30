@@ -1,3 +1,4 @@
+include device/qcom/wlan//vendor_board_common.mk
 #
 # TARGET_WLAN_CHIP directs QCACLD driver to be built for that particular
 # chipset(s). It can take multiple supported chipsets. Please refer QCACLD
@@ -10,7 +11,7 @@
 # e.g. TARGET_WLAN_CHIP := kiwi_v2
 #	builds qca_cld3_kiwi_v2.ko
 #
-#	Copies configuration files from device/qcom/wlan/canoe/ to
+#	Copies configuration files from device/qcom/wlan/art/ to
 #	$(TARGET_COPY_OUT_VENDOR)/etc/wifi/ like,
 #
 #	WCNSS_qcom_cfg_kiwi_v2.ini -> kiwi_v2/WCNSS_qcom_cfg.ini
@@ -22,7 +23,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := kiwi_v2 peach_v2 wcn7750
+TARGET_WLAN_CHIP := peach_v2 fig
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -198,17 +199,17 @@ WIFI_HIDL_FEATURE_AWARE := true
 ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
-			      device/qcom/wlan/canoe/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+			      device/qcom/wlan/art/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
 else
 	PRODUCT_COPY_FILES += \
-			      device/qcom/wlan/canoe/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+			      device/qcom/wlan/art/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
 endif
 
 PRODUCT_COPY_FILES += \
-				device/qcom/wlan/canoe/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-				device/qcom/wlan/canoe/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-				device/qcom/wlan/canoe/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
+				device/qcom/wlan/art/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+				device/qcom/wlan/art/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+				device/qcom/wlan/art/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
@@ -232,39 +233,5 @@ TARGET_USES_NO_FW_QMI_CLIENT := true
 #Disable DMS MAC address feature in cnss-daemon
 TARGET_USES_NO_DMS_QMI_CLIENT := true
 
-WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_CNSS2=m \
-				CONFIG_CNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m \
-				CONFIG_CNSS_PLAT_IPC_QMI_SVC=m \
-				CONFIG_CNSS_GENL=m CONFIG_WCNSS_MEM_PRE_ALLOC=m \
-				CONFIG_CNSS_UTILS=m CONFIG_BUS_AUTO_SUSPEND=y \
-				KERNEL_SUPPORTS_NESTED_COMPOSITES=n \
-				CONFIG_CNSS2_SSR_DRIVER_DUMP=y
-
-ifeq ($(TARGET_KERNEL_DLKM_SECURE_MSM_OVERRIDE), true)
-WLAN_PLATFORM_KBUILD_OPTIONS += CONFIG_CNSS_HW_SECURE_DISABLE=y
-endif
-
-WLAN_MODULES_VENDOR += cnss2.ko
-WLAN_MODULES_VENDOR += cnss_plat_ipc_qmi_svc.ko
-WLAN_MODULES_VENDOR += wlan_firmware_service.ko
-WLAN_MODULES_VENDOR += cnss_nl.ko
-WLAN_MODULES_VENDOR += cnss_prealloc.ko
-WLAN_MODULES_VENDOR += cnss_utils.ko
-
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
-
-ifneq ($(TARGET_WLAN_CHIP),)
-
-	# Inject Kbuild options per chip
-	#
-	# Select proper chip configuration for building WLAN driver
-	# module. Currently driver supports only one chip
-	# configuration per build.
-	#
-	# e.g WLAN_KBUILD_OPTIONS_qca6490 := CONFIG_CNSS_QCA6490=y
-	#
-	# Note: Idealy, device specific flags should be enabled from
-	# device specific config file from driver itself instead of
-	# here.
-endif
