@@ -122,3 +122,7 @@ endif
 
 # Enable wpa_supplicant/hostapd vendor AIDL service
 $(call soong_config_set_bool,wpa_supplicant_8,enable_vendor_aidl,true)
+
+ifneq ($(filter 17 CinnamonBun,$(PLATFORM_VERSION)),)
+$(call soong_config_set_bool,wifi,android_17_support,true)
+endif
