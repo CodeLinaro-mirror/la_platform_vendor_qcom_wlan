@@ -103,6 +103,7 @@ function enable_dual_wifi() {
 		"0x1107")
 		setprop ro.vendor.wlan.chip kiwi_v2
 		setprop ro.vendor.wlan.6ghz true
+		setprop ro.vendor.wlan.secondary.iface "wlan1"
 		;;
 		*)
 		echo "Not supported device id $primary_dev"
@@ -126,6 +127,7 @@ function enable_dual_wifi() {
 		"0x1107")
 		setprop ro.vendor.wlan.chip2 kiwi_v2
 		setprop ro.vendor.wlan.6ghz true
+		setprop ro.vendor.wlan.secondary.iface "wlan1"
 		;;
 		*)
 		echo "Not supported device id $secondary_dev"
@@ -145,8 +147,6 @@ function enable_dual_wifi() {
 	setprop ro.vendor.wlan.secondary.sap.1stiface "swlan3"
 	setprop ro.vendor.wlan.secondary.sap.2ndiface "swlan4"
 
-	#specify the wlan interface name created default by secondary wlan driver module
-	setprop ro.vendor.wlan.secondary.iface "wlan2"
 }
 
 runcon u:r:vendor_modprobe:s0 /vendor/bin/modprobe -a -d /vendor/lib/modules pcie-qcom-ecam

@@ -101,3 +101,6 @@ SOONG_CONFIG_NAMESPACES += wpa_supplicant_8
 SOONG_CONFIG_wpa_supplicant_8 += enable_vendor_aidl
 SOONG_CONFIG_wpa_supplicant_8_enable_vendor_aidl := true
 
+ifneq ($(filter 17 CinnamonBun,$(PLATFORM_VERSION)),)
+$(call soong_config_set_bool,wifi,android_17_support,true)
+endif
