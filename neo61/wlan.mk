@@ -27,6 +27,9 @@ ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
 WLAN_MODULES_VENDOR_DEBUG :=
 endif
 
+#Force using Android.mk for WPA configuration instead of Soong
+FORCE_USE_ANDROIDMK_FOR_WPA_CONF := true
+
 #WPA
 WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
@@ -180,6 +183,7 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	# here.
 endif
 
-ifeq ($(filter $(PLATFORM_VERSION),14 UpsideDownCake 15 VanillaIceCream 16 Baklava),$(PLATFORM_VERSION))
+ifeq ($(filter $(PLATFORM_VERSION), \
+    14 UpsideDownCake 15 VanillaIceCream 16 Baklava 17 CinnamonBun),$(PLATFORM_VERSION))
     $(call soong_config_set,wifi,wifi_driver_android_version,android_u_above)
 endif
