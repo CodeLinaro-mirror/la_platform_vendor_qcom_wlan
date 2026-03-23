@@ -129,3 +129,9 @@ endif
 SOONG_CONFIG_NAMESPACES += wpa_supplicant_8
 SOONG_CONFIG_wpa_supplicant_8 += enable_vendor_aidl
 SOONG_CONFIG_wpa_supplicant_8_enable_vendor_aidl := true
+
+ifeq ($(findstring true,$(TARGET_FWK_SUPPORTS_FULL_VALUEADDS) $(TARGET_BOARD_AUTO)),true)
+ifndef SOONG_CONFIG_qtiwifi_automobile
+$(call soong_config_set_bool,qtiwifi,automobile,true)
+endif #SOONG_CONFIG_qtiwifi_automobile
+endif #TARGET_FWK_SUPPORTS_FULL_VALUEADDS | TARGET_BOARD_AUTO
