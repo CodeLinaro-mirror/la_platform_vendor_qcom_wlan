@@ -183,6 +183,7 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	# here.
 endif
 
-ifeq ($(filter $(PLATFORM_VERSION),14 UpsideDownCake 15 VanillaIceCream 16 Baklava),$(PLATFORM_VERSION))
+ifeq ($(filter $(PLATFORM_VERSION), \
+    14 UpsideDownCake 15 VanillaIceCream 16 Baklava 17 CinnamonBun),$(PLATFORM_VERSION))
     $(call soong_config_set,wifi,wifi_driver_android_version,android_u_above)
 endif
