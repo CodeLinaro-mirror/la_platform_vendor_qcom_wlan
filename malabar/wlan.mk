@@ -33,11 +33,11 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
-#ifneq ($(TARGET_WLAN_CHIP),)
-	#WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
-#else
-	#WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
-#endif
+ifneq ($(TARGET_WLAN_CHIP),)
+	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+else
+	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
+endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/common-tools),)
 WLAN_MODULES_VENDOR += wifilearner
@@ -137,6 +137,17 @@ TARGET_USES_NO_FW_QMI_CLIENT := true
 
 #Disable DMS MAC address feature in cnss-daemon
 TARGET_USES_NO_DMS_QMI_CLIENT := true
+
+WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_ICNSS2=m \
+				CONFIG_ICNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m \
+				CONFIG_CNSS_GENL=m CONFIG_WCNSS_MEM_PRE_ALLOC=m \
+				CONFIG_CNSS_UTILS=m KERNEL_SUPPORTS_NESTED_COMPOSITES=n
+
+WLAN_MODULES_VENDOR += icnss2.ko
+WLAN_MODULES_VENDOR += wlan_firmware_service.ko
+WLAN_MODULES_VENDOR += cnss_nl.ko
+WLAN_MODULES_VENDOR += cnss_prealloc.ko
+WLAN_MODULES_VENDOR += cnss_utils.ko
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
