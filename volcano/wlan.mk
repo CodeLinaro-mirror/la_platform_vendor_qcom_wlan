@@ -17,6 +17,9 @@
 #
 #
 
+# Soong Values for controling Customer variant builds
+$(call soong_config_set,qtiwifi,automobile,true)
+
 TARGET_WLAN_CHIP := qca6750 peach_v2 wcn6450
 
 WLAN_CHIPSET := qca_cld3
@@ -70,6 +73,7 @@ WLAN_MODULES_VENDOR += wpa_supplicant
 WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += hs20-osu-client
+WLAN_MODULES_VENDOR += qtiwifi
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
@@ -125,6 +129,9 @@ WLAN_MODULES_VENDOR += cnss_utils.ko
 
 PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
+
+#Enable rc file from wpa_supplicant project
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom/wlan \
