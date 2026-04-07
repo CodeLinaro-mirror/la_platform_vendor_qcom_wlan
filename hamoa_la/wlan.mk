@@ -36,7 +36,7 @@ WLAN_MODULES_VENDOR := $(WPA)
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
 ifneq ($(TARGET_WLAN_CHIP),)
-	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+	WLAN_MODULES_VENDOR += $(patsubst %, $(WLAN_CHIPSET)_%.ko, $(TARGET_WLAN_CHIP))
 else
 	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
 endif
@@ -113,8 +113,7 @@ WIFI_HIDL_FEATURE_AWARE := true
 # Copy chip specific INI files if TARGET_WLAN_CHIP is defined
 ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
-			      $(foreach chip, $(TARGET_WLAN_CHIP), \
-			      device/qcom/wlan/hamoa_la/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+			      $(call product-copy-files-by-pattern,device/qcom/wlan/hamoa_la/WCNSS_qcom_cfg_%.ini,$(TARGET_COPY_OUT_VENDOR)/etc/wifi/%/WCNSS_qcom_cfg.ini,$(TARGET_WLAN_CHIP))
 else
 	PRODUCT_COPY_FILES += \
 			      device/qcom/wlan/hamoa_la/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
