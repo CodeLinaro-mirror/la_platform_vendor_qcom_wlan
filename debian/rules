@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+# Debian rules for wlan-device-cfg-hmt
+# Installs WLAN firmware configuration files for qca6797 (HMT platform).
+#
+# Source layout (relative to device/qcom/wlan/, which is $(CURDIR)):
+#   msm_auto/WCNSS_qcom_cfg_qca6797.ini  → /lib/firmware/wlan/qca_cld/qca6797/WCNSS_qcom_cfg.ini
+#   msm_auto/wlan_mac.bin                → /lib/firmware/wlan/qca_cld/qca6797/wlan_mac.bin
+
+export DH_VERBOSE = 1
+
+MODNAME         := qca6797
+DEVICE_WLAN_DIR := $(CURDIR)/msm_auto
+PKG_DIR         := $(CURDIR)/debian/wlan-device-cfg-hmt
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Nothing to compile – pure data package.
+
+override_dh_auto_install:
+	# Install firmware config → /lib/firmware/wlan/qca_cld/<modname>/
+	install -d $(PKG_DIR)/lib/firmware/wlan/qca_cld/$(MODNAME)
+	install -D -m 0644 $(DEVICE_WLAN_DIR)/WCNSS_qcom_cfg_qca6797.ini \
+		$(PKG_DIR)/lib/firmware/wlan/qca_cld/$(MODNAME)/WCNSS_qcom_cfg.ini
+	install -D -m 0644 $(DEVICE_WLAN_DIR)/wlan_mac.bin \
+		$(PKG_DIR)/lib/firmware/wlan/qca_cld/$(MODNAME)/wlan_mac.bin
+
+override_dh_auto_clean:
+	# Nothing to clean.

@@ -1,0 +1,7 @@
+wlan-device-cfg-hmt (1.0.0) unstable; urgency=medium
+
+  * Initial Debian packaging for WLAN device firmware configuration.
+  * Installs WCNSS_qcom_cfg.ini and wlan_mac.bin for qca6797 (HMT)
+    into /lib/firmware/wlan/qca_cld/qca6797/.
+
+ -- Ben Wang <benw@qti.qualcomm.com>  Fri, 03 Apr 2026 09:00:00 +0000

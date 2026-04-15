@@ -1,0 +1,18 @@
+Source: wlan-device-cfg-hmt
+Section: misc
+Priority: optional
+Maintainer: Ben Wang <benw@qti.qualcomm.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://git.codelinaro.org/
+
+Package: wlan-device-cfg-hmt
+Architecture: all
+Depends: ${misc:Depends}
+Description: WLAN firmware configuration files for HMT (qca6797)
+ Installs WLAN firmware configuration and MAC address files for the
+ qca6797 (HMT) chipset into /lib/firmware/wlan/qca_cld/qca6797/.
+ .
+ Includes:
+  - WCNSS_qcom_cfg.ini: WLAN driver configuration
+  - wlan_mac.bin: MAC address configuration
