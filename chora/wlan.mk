@@ -22,7 +22,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := wcn6450 wcn7750
+TARGET_WLAN_CHIP := wcn6450 wcn7750 adrastea
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -33,11 +33,11 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
-#ifneq ($(TARGET_WLAN_CHIP),)
-	#WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
-#else
-	#WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
-#endif
+ifneq ($(TARGET_WLAN_CHIP),)
+	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+else
+	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
+endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/common-tools),)
 WLAN_MODULES_VENDOR += wifilearner
@@ -132,4 +132,5 @@ TARGET_USES_NO_FW_QMI_CLIENT := true
 TARGET_USES_NO_DMS_QMI_CLIENT := true
 
 
+PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 PRODUCT_PACKAGES += libwifi-hal
