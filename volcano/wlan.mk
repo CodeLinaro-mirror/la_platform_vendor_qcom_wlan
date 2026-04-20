@@ -19,6 +19,9 @@
 
 # Soong Values for controling Customer variant builds
 $(call soong_config_set,qtiwifi,automobile,true)
+ifneq ($(BUILDING_WITH_VSDK), true)
+$(call soong_config_set,wpa_supplicant_8,enable_vendor_aidl,true)
+endif
 
 TARGET_WLAN_CHIP := qca6750 peach_v2 wcn6450
 
