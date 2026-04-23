@@ -25,6 +25,13 @@ override_dh_auto_install:
 		$(PKG_DIR)/lib/firmware/wlan/qca_cld/$(MODNAME)/WCNSS_qcom_cfg.ini
 	install -D -m 0644 $(DEVICE_WLAN_DIR)/wlan_mac.bin \
 		$(PKG_DIR)/lib/firmware/wlan/qca_cld/$(MODNAME)/wlan_mac.bin
+	# Install WLAN config files → /etc/misc/wifi/
+	install -d $(PKG_DIR)/etc/misc/wifi
+	install -m 0644 $(DEVICE_WLAN_DIR)/*.conf $(PKG_DIR)/etc/misc/wifi/
+	install -m 0644 $(DEVICE_WLAN_DIR)/vendor_cmd.xml $(PKG_DIR)/etc/misc/wifi/
+	# Install WLAN scripts → /usr/bin/
+	install -d $(PKG_DIR)/usr/bin
+	install -m 0755 $(DEVICE_WLAN_DIR)/*.sh $(PKG_DIR)/usr/bin/
 
 override_dh_auto_clean:
 	# Nothing to clean.
