@@ -27,6 +27,9 @@ ifeq ($(TARGET_BASE_PRODUCT),neo_custom)
 WLAN_MODULES_VENDOR_DEBUG :=
 endif
 
+#Force using Android.mk for WPA configuration instead of Soong
+FORCE_USE_ANDROIDMK_FOR_WPA_CONF := true
+
 #WPA
 WPA := wpa_cli
 WLAN_MODULES_VENDOR := $(WPA)
@@ -83,6 +86,16 @@ WLAN_MODULES_VENDOR += wpa_supplicant
 WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += hs20-osu-client
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+WLAN_MODULES_VENDOR += iw_recovery
+WLAN_MODULES_VENDOR += wpa_supplicant_recovery
+WLAN_MODULES_VENDOR += wpa_cli_recovery
+WLAN_MODULES_VENDOR += hostapd_recovery
+WLAN_MODULES_VENDOR += hostapd_cli_recovery
+WLAN_MODULES_VENDOR += dnsmasq_recovery
+WLAN_MODULES_VENDOR += ping_recovery
+WLAN_MODULES_VENDOR += dhcpdbg_recovery
+endif
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
@@ -102,9 +115,18 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
 			      device/qcom/$(PRJ_PATH)wlan/neo61/WCNSS_qcom_cfg_$(chip)$(INI_FILE_EXT).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+	PRODUCT_COPY_FILES += \
+			      $(foreach chip, $(TARGET_WLAN_CHIP), \
+			      device/qcom/$(PRJ_PATH)wlan/neo61/WCNSS_qcom_cfg_$(chip).ini:recovery/root/vendor/firmware/wlan/qca_cld/$(chip)/WCNSS_qcom_cfg.ini)
+endif
 else
 	PRODUCT_COPY_FILES += \
 			      device/qcom/$(PRJ_PATH)wlan/neo61/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+	PRODUCT_COPY_FILES += \
+			      device/qcom/$(PRJ_PATH)wlan/neo61/WCNSS_qcom_cfg.ini:recovery/root/vendor/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+endif
 
 endif
 
@@ -125,6 +147,11 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.aware.interface=wifi-aware0
+
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+	recovery.mode.wifi=true
+endif
 
 # Enable STA + STA Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_STA := true
@@ -180,6 +207,7 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	# here.
 endif
 
-ifeq ($(filter $(PLATFORM_VERSION),14 UpsideDownCake 15 VanillaIceCream 16 Baklava),$(PLATFORM_VERSION))
+ifeq ($(filter $(PLATFORM_VERSION), \
+    14 UpsideDownCake 15 VanillaIceCream 16 Baklava 17 CinnamonBun),$(PLATFORM_VERSION))
     $(call soong_config_set,wifi,wifi_driver_android_version,android_u_above)
 endif
