@@ -6,6 +6,7 @@ WPA := wpa_cli
 PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
 PRODUCT_PACKAGES += wifilearner
 PRODUCT_PACKAGES += dppdaemon
+PRODUCT_PACKAGES += ctrlapp_dut
 PRODUCT_PACKAGES += $(WPA)
 
 #Enable WIFI AWARE FEATURE
