@@ -123,11 +123,13 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 #Enable cal delete feature
 TARGET_CAL_DATA_CLEAR := true
 
-#Disable Perf tuner in cnss-daemon
-TARGET_USES_NO_CNSS_DP := true
-
 #Enable caldb feature (in wearable SP)
 TARGET_USES_LOW_POWER_CLIENT := true
+
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+       vendor.wlan.recovery=true
+endif
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
