@@ -68,6 +68,11 @@ PRODUCT_COPY_FILES += \
 	$(BOARD_WLAN_DIR)/vienna/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
 	$(BOARD_WLAN_DIR)/vienna/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf
 
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+	PRODUCT_COPY_FILES += \
+	$(BOARD_WLAN_DIR)/vienna/WCNSS_qcom_cfg.ini:recovery/root/lib/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+endif
+
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
@@ -108,11 +113,13 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 #Enable cal delete feature
 TARGET_CAL_DATA_CLEAR := true
 
-#Disable Perf tuner in cnss-daemon
-TARGET_USES_NO_CNSS_DP := true
-
 #Enable caldb feature (in wearable SP)
 TARGET_USES_LOW_POWER_CLIENT := true
+
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+       vendor.wlan.recovery=true
+endif
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
