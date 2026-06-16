@@ -115,6 +115,9 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
 			      device/qcom/wlan/hamoa/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+	PRODUCT_COPY_FILES += \
+                              $(foreach chip, $(TARGET_WLAN_CHIP), \
+                              device/qcom/wlan/hamoa/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip)/WCNSS_qcom_cfg.ini)
 else
 	PRODUCT_COPY_FILES += \
 			      device/qcom/wlan/hamoa/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
