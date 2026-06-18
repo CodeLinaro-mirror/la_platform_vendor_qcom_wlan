@@ -119,3 +119,6 @@ TARGET_CAL_DATA_CLEAR := true
 ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
 ${call soong_config_set,wifi,libpasn_support,false}
 endif
+
+# Enable wpa_supplicant/hostapd vendor AIDL service
+$(call soong_config_set_bool,wpa_supplicant_8,enable_vendor_aidl,true)
