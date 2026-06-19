@@ -27,9 +27,8 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Changes from Qualcomm Innovation Center are provided under the following license:
-# Copyright (c) 2021-2022 Qualcomm Innovation Center, Inc. All rights reserved.
-# SPDX-License-Identifier: BSD-3-Clause-Clear
+# Changes from Qualcomm Technologies, Inc. are provided under the following license:
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 -->
 
 <WCN_VenTool>
@@ -413,13 +412,6 @@
 		<Attribute name="CONFIG_NUM_RX_CHAINS_2GHZ" ID="115" TYPE="u8"/>
 		<Attribute name="CONFIG_NUM_TX_CHAINS_5GHZ" ID="116" TYPE="u8"/>
 		<Attribute name="CONFIG_NUM_RX_CHAINS_5GHZ" ID="117" TYPE="u8"/>
-		<Attribute name="CONFIG_ANT_DIV_PROBE_COUNT_WLAN" ID="124" TYPE="u16"/>
-		<Attribute name="CONFIG_ANT_DIV_PROBE_COUNT_BT" ID="125" TYPE="u16"/>
-		<Attribute name="CONFIG_ANT_DIV_PROBE_WLAN_RSSI_THRE" ID="126" TYPE="u16"/>
-		<Attribute name="CONFIG_ANT_DIV_PROBE_BT_RSSI_THRE" ID="127" TYPE="u16"/>
-		<Attribute name="CONFIG_ANT_DIV_WLAN_RSSI_DIFF" ID="128" TYPE="u16"/>
-		<Attribute name="CONFIG_ANT_DIV_BT_RSSI_DIFF" ID="129" TYPE="u16"/>
-		<Attribute name="CONFIG_DFS_NO_WAIT_SUPPORT" ID="131" TYPE="u8"/>
 	</VendorCmd>
 	<!-- QCA_NL80211_VENDOR_SUBCMD_GET_WIFI_CONFIGURATION = 75 -->
 	<VendorCmd name="GET_WIFI_CONFIG" ID="75">
@@ -757,11 +749,6 @@
 	<!-- QCA_NL80211_VENDOR_SUBCMD_GET_CHAIN_RSSI = 138 -->
 	<VendorCmd name="GET_CHAIN_RSSI" ID="138">
 		<Attribute name="MAC_ADDR" ID="6" TYPE="mac_addr"/>
-		<VendorRsp name="GET_CHAIN_RSSI" ID="138" ATTR_MAX="44">
-			<Attribute name="CHAIN_RSSI" ID="27" TYPE="blob" LENGTH="32"/>
-			<Attribute name="CHAIN_EVM" ID="41" TYPE="blob" LENGTH="32"/>
-			<Attribute name="ANTANA_INFO" ID="40" TYPE="blob" LENGTH="32"/>
-		</VendorRsp>
 	</VendorCmd>
 	<!-- QCA_NL80211_VENDOR_SUBCMD_DMG_RF_GET_SECTOR_CFG = 139 -->
 	<!-- QCA_NL80211_VENDOR_SUBCMD_DMG_RF_SET_SECTOR_CFG = 140 -->
@@ -1049,58 +1036,5 @@
 				<Attribute name="MDNS_OFFLOAD_ANSWER_PAYLOAD" ID="6" TYPE="blob"/>
 			</Attribute>
 		</Attribute>
-	</VendorCmd>
-	<!-- QCA_NL80211_VENDOR_SUBCMD_P2P_SET_NOA = 261 -->
-	<VendorCmd name="P2P_SET_NOA" ID="261">
-		<Attribute name="P2P_SET_NOA_COUNT" ID="1" TYPE="u8"/>
-		<Attribute name="P2P_SET_NOA_DURATION" ID="2" TYPE="u32"/>
-		<Attribute name="P2P_SET_NOA_INTERVAL" ID="3" TYPE="u32"/>
-		<Attribute name="P2P_SET_NOA_START" ID="4" TYPE="u32"/>
-		<Attribute name="P2P_SET_GO_CANCEL_ONE_SHOT_NOA" ID="5" TYPE="u8"/>
-		<Attribute name="P2P_SET_GC_KEEP_AWAKE_DURING_ONE_SHOT_NOA" ID="6" TYPE="u8"/>
-	</VendorCmd>
-	<!-- QCA_NL80211_VENDOR_SUBCMD_FEATURE_CONFIG = 266 -->
-	<VendorCmd name="SET_FEATURE_CONFIG" ID="266">
-		<Attribute name="FEATURE_CONFIG_ID" ID="1" TYPE="u32"/>
-		<Attribute name="FEATURE_CONFIG_EXTENSION_LIST" ID="2" TYPE="NESTED" ATTR_MAX="100">
-			<Attribute name="FEATURE_CONFIG_EXTENSION_OUI" ID="1" TYPE="BLOB"/>
-			<Attribute name="FEATURE_CONFIG_EXTENSION_DATA" ID="2" TYPE="BLOB"/>
-			<Attribute name="FEATURE_CONFIG_EXTENSION_DATA_MASK" ID="3" TYPE="BLOB"/>
-			<Attribute name="FEATURE_CONFIG_EXTENSION_MAC_ADDR" ID="4" TYPE="mac_addr"/>
-			<Attribute name="FEATURE_CONFIG_EXTENSION_MAC_MASK" ID="5" TYPE="BLOB"/>
-			<Attribute name="FEATURE_CONFIG_EXTENSION_CAPABILITY" ID="6" TYPE="NESTED">
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_NSS_MASK" ID="1" TYPE="u8"/>
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_HT" ID="2" TYPE="FLAG"/>
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_VHT" ID="3" TYPE="FLAG"/>
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_HE" ID="4" TYPE="FLAG"/>
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_EHT" ID="5" TYPE="FLAG"/>
-				<Attribute name="FEATURE_CONFIG_CAPABILITY_BAND_MASK" ID="6" TYPE="u32"/>
-			</Attribute>
-		</Attribute>
-		<Attribute name="FEATURE_CONFIG_OP" ID="3" TYPE="u8"/>
-	</VendorCmd>
-	<VendorCmd name="DCS_CONFIG" ID="269">
-		<Attribute name="DCS_LINK_ID" ID="1" TYPE="u8"/>
-		<Attribute name="DCS_CMD_TYPE" ID="2" TYPE="u8"/>
-		<Attribute name="DCS_ENABLE" ID="3" TYPE="u16"/>
-		<Attribute name="INTERFERENCE_DETECTION_THRESHOLD" ID="4" TYPE="u32"/>
-		<Attribute name="PHY_ERR_PENALTY" ID="5" TYPE="u32"/>
-		<Attribute name="PHY_ERR_THRESHOLD" ID="6" TYPE="u32"/>
-		<Attribute name="RADAR_ERR_THRESHOLD" ID="7" TYPE="u32"/>
-		<Attribute name="TX_ERR_THRESHOLD" ID="8" TYPE="u32"/>
-		<Attribute name="INTERFERENCE_DETECTION_WINDOW" ID="9" TYPE="u32"/>
-		<Attribute name="COCHANNEL_INTERFERENCE_THRESHOLD" ID="10" TYPE="u8"/>
-		<Attribute name="MAX_CU" ID="11" TYPE="u8"/>
-		<VendorRsp name="DCS_CONFIG" ID="269" ATTR_MAX="76">
-			<Attribute name="DCS_ENABLE" ID="3" TYPE="u16"/>
-			<Attribute name="INTERFERENCE_DETECTION_THRESHOLD" ID="4" TYPE="u32"/>
-			<Attribute name="PHY_ERR_PENALTY" ID="5" TYPE="u32"/>
-			<Attribute name="PHY_ERR_THRESHOLD" ID="6" TYPE="u32"/>
-			<Attribute name="RADAR_ERR_THRESHOLD" ID="7" TYPE="u32"/>
-			<Attribute name="TX_ERR_THRESHOLD" ID="8" TYPE="u32"/>
-			<Attribute name="INTERFERENCE_DETECTION_WINDOW" ID="9" TYPE="u32"/>
-			<Attribute name="COCHANNEL_INTERFERENCE_THRESHOLD" ID="10" TYPE="u8"/>
-			<Attribute name="MAX_CU" ID="11" TYPE="u8"/>
-		</VendorRsp>
 	</VendorCmd>
 </WCN_VenTool>
