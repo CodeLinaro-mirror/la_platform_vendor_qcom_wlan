@@ -49,16 +49,6 @@ WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += android.hardware.wifi-service
 WLAN_MODULES_VENDOR += $(WPA)
-ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
-WLAN_MODULES_VENDOR += iw_recovery
-WLAN_MODULES_VENDOR += wpa_supplicant_recovery
-WLAN_MODULES_VENDOR += wpa_cli_recovery
-WLAN_MODULES_VENDOR += hostapd_recovery
-WLAN_MODULES_VENDOR += hostapd_cli_recovery
-WLAN_MODULES_VENDOR += dnsmasq_recovery
-WLAN_MODULES_VENDOR += ping_recovery
-WLAN_MODULES_VENDOR += dhcpdbg_recovery
-endif
 
 #Enable rc file from wpa_supplicant
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY ?= true
@@ -123,11 +113,13 @@ QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 #Enable cal delete feature
 TARGET_CAL_DATA_CLEAR := true
 
-#Disable Perf tuner in cnss-daemon
-TARGET_USES_NO_CNSS_DP := true
-
 #Enable caldb feature (in wearable SP)
 TARGET_USES_LOW_POWER_CLIENT := true
+
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+       vendor.wlan.recovery=true
+endif
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
