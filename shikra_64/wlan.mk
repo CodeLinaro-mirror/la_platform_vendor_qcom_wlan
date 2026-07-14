@@ -1,8 +1,5 @@
 WLAN_CHIPSET := qca_cld3
 
-# WLAN wear specific defconfig
-WLAN_PROFILE := wear
-
 #WPA
 WPA := wpa_cli
 
@@ -31,7 +28,8 @@ PRODUCT_COPY_FILES += \
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
+	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
+	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 endif
 
 PRODUCT_PACKAGES += icnss2.ko
