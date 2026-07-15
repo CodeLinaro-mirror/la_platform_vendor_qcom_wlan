@@ -24,7 +24,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := kiwi_v2
+TARGET_WLAN_CHIP := kiwi_v2 wcn7760
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
