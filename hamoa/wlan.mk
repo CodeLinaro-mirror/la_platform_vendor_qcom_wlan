@@ -139,6 +139,12 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 # Enable SAP + SAP Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 
+# Enable CONFIG_IEEE80211AX
+WIFI_FEATURE_SUPPLICANT_11AX := true
+
+# Enable CONFIG_IEEE80211BE
+WIFI_FEATURE_SUPPLICANT_11BE := true
+
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.aware.interface=wifi-aware0
