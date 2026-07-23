@@ -3,11 +3,11 @@ WLAN_CHIPSET := qca_cld3
 #WPA
 WPA := wpa_cli
 
-PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
-PRODUCT_PACKAGES += wifilearner
-PRODUCT_PACKAGES += dppdaemon
-PRODUCT_PACKAGES += $(WPA)
-PRODUCT_PACKAGES += ctrlapp_dut
+WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
+WLAN_MODULES_VENDOR += wifilearner
+WLAN_MODULES_VENDOR += dppdaemon
+WLAN_MODULES_VENDOR += $(WPA)
+WLAN_MODULES_VENDOR += ctrlapp_dut
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := false
@@ -19,11 +19,13 @@ PRODUCT_COPY_FILES += \
 	device/qcom/wlan/bengal_32go/icm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/icm.conf \
 	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 
-PRODUCT_PACKAGES += icnss2.ko
-PRODUCT_PACKAGES += wlan_firmware_service.ko
-PRODUCT_PACKAGES += cnss_prealloc.ko
-PRODUCT_PACKAGES += cnss_utils.ko
-PRODUCT_PACKAGES += cnss_nl.ko
+WLAN_MODULES_VENDOR += icnss2.ko
+WLAN_MODULES_VENDOR += wlan_firmware_service.ko
+WLAN_MODULES_VENDOR += cnss_prealloc.ko
+WLAN_MODULES_VENDOR += cnss_utils.ko
+WLAN_MODULES_VENDOR += cnss_nl.ko
+
+PRODUCT_PACKAGES += $(WLAN_MODULES_VENDOR)
 
 WLAN_PLATFORM_KBUILD_OPTIONS := CONFIG_CNSS_OUT_OF_TREE=y CONFIG_ICNSS2=m \
                                 CONFIG_ICNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m \
