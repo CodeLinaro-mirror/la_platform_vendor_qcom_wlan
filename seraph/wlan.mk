@@ -39,8 +39,12 @@ WLAN_MODULES_VENDOR += qsh_wifi_test
 WLAN_MODULES_VENDOR += init.vendor.wlan.rc
 WLAN_MODULES_VENDOR += wificfrtool
 WLAN_MODULES_VENDOR += ctrlapp_dut
+ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-ss),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem
+endif
+ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-hmd),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
+endif
 WLAN_MODULES_VENDOR += libtcmd
 WLAN_MODULES_VENDOR += libtestcmd6174
 WLAN_MODULES_VENDOR += libtlvutil
@@ -90,7 +94,6 @@ PRODUCT_COPY_FILES += \
 				device/qcom/wlan/seraph/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
 				device/qcom/wlan/seraph/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-                                frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 
 # Enable STA + SAP Concurrency.
