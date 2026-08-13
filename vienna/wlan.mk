@@ -1,6 +1,11 @@
 WLAN_CHIPSET := qca_cld3
 
+ifeq ($(TARGET_SUPPORTS_WEAR_ANDROID),true)
 ${call soong_config_set,wifi,libpasn_support,true}
+else
+${call soong_config_set,wifi,libpasn_support,false}
+endif
+
 # WLAN wear specific defconfig
 WLAN_PROFILE := wear
 
