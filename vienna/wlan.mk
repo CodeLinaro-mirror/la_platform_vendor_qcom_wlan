@@ -1,6 +1,6 @@
 WLAN_CHIPSET := qca_cld3
 
-${call soong_config_set,wifi,libpasn_support,false}
+${call soong_config_set,wifi,libpasn_support,true}
 # WLAN wear specific defconfig
 WLAN_PROFILE := wear
 
@@ -73,11 +73,10 @@ ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
 	$(BOARD_WLAN_DIR)/vienna/WCNSS_qcom_cfg.ini:recovery/root/lib/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 endif
 
-ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
+#Product xml files to enable different interfaces support from wifi frameworks
+#Enable NAN/Aware
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
-endif
+	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml
 
 WLAN_MODULES_VENDOR += cnss2_sdio.ko
 WLAN_MODULES_VENDOR += qcn_sdio.ko
