@@ -29,19 +29,19 @@ WPA := wpa_cli
 
 # Package chip specific ko files if TARGET_WLAN_CHIP is defined.
 ifneq ($(TARGET_WLAN_CHIP),)
-	PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
+	WLAN_MODULES_VENDOR += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
 else
-	PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
+	WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
 endif
-PRODUCT_PACKAGES += wifilearner
-PRODUCT_PACKAGES += $(WPA)
-PRODUCT_PACKAGES += lowirpcd
-PRODUCT_PACKAGES += qsh_wifi_test
-PRODUCT_PACKAGES += init.vendor.wlan.rc
-PRODUCT_PACKAGES += wificfrtool
-PRODUCT_PACKAGES += ctrlapp_dut
-PRODUCT_PACKAGES += wifimyftm
-PRODUCT_PACKAGES += libwpa_drv_oem_hmd
+WLAN_MODULES_VENDOR += wifilearner
+WLAN_MODULES_VENDOR += $(WPA)
+WLAN_MODULES_VENDOR += lowirpcd
+WLAN_MODULES_VENDOR += qsh_wifi_test
+WLAN_MODULES_VENDOR += init.vendor.wlan.rc
+WLAN_MODULES_VENDOR += wificfrtool
+WLAN_MODULES_VENDOR += ctrlapp_dut
+WLAN_MODULES_VENDOR += wifimyftm
+WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
 
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
@@ -104,4 +104,7 @@ ifneq ($(TARGET_WLAN_CHIP),)
 endif
 
 # Enable q5drv
-PRODUCT_PACKAGES_DEBUG += q5drv_linux.ko
+WLAN_MODULES_VENDOR_DEBUG += q5drv_linux.ko
+
+PRODUCT_PACKAGES_DEBUG += $(WLAN_MODULES_VENDOR_DEBUG)
+PRODUCT_PACKAGES +=$(WLAN_MODULES_VENDOR)
