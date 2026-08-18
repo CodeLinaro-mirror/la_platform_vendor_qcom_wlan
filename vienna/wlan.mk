@@ -6,6 +6,13 @@ else
 ${call soong_config_set,wifi,libpasn_support,false}
 endif
 
+ifeq ($(TARGET_BOARD_PLATFORM),vienna)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+$(call soong_config_set_bool,wifi,wifi_recovery_available,true)
+$(call soong_config_set_bool,target_recovery,target_recovery_available,true)
+endif
+endif
+
 # WLAN wear specific defconfig
 WLAN_PROFILE := wear
 
