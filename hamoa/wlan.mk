@@ -24,7 +24,7 @@ $(call soong_config_set,qtiwlan,hwasan,false)
 $(call soong_config_set,qtiwlan,hy11,false)
 $(call soong_config_set,qtiwlan,hy22,false)
 
-TARGET_WLAN_CHIP := kiwi_v2
+TARGET_WLAN_CHIP := kiwi_v2 wcn7760
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -52,7 +52,6 @@ WLAN_MODULES_VENDOR += vendor_cmd_tool
 # Setting this flag to enable HY11 bins inclusion. keep this line here as common-tools is hy11 shippable
 #$(call soong_config_set,qtiwlan,hy11,true)
 # Add binaries under this, which needs to be delivered to HY11 builds
-WLAN_MODULES_VENDOR += wifi_qos_daemon
 endif
 
 ifneq (,$(filter hwaddress,$(SANITIZE_TARGET)))
@@ -73,10 +72,6 @@ WLAN_MODULES_VENDOR += libwpa_drv_oem
 endif
 ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-hmd),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
-endif
-ifneq ($(wildcard $(QCPATH)/wlan/noship/wifi_qos_daemon),)
-WLAN_MODULES_VENDOR += wifi_qos_daemon
-WLAN_MODULES_VENDOR += libtxpbcsv
 endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/ath6kl-utils),)
@@ -115,6 +110,9 @@ ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \
 			      $(foreach chip, $(TARGET_WLAN_CHIP), \
 			      device/qcom/wlan/hamoa/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini)
+	PRODUCT_COPY_FILES += \
+                              $(foreach chip, $(TARGET_WLAN_CHIP), \
+                              device/qcom/wlan/hamoa/WCNSS_qcom_cfg_$(chip).ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip)/WCNSS_qcom_cfg.ini)
 else
 	PRODUCT_COPY_FILES += \
 			      device/qcom/wlan/hamoa/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
@@ -127,13 +125,20 @@ PRODUCT_COPY_FILES += \
 				device/qcom/wlan/hamoa/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
                                 frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
-                                frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
+                                frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
+                                device/qcom/wlan/wlan_pci_subsys_bdf_map.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan_pci_subsys_bdf_map.ini
 
 # Enable STA + SAP Concurrency.
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # Enable SAP + SAP Feature.
 QC_WIFI_HIDL_FEATURE_DUAL_AP := true
+
+# Enable CONFIG_IEEE80211AX
+WIFI_FEATURE_SUPPLICANT_11AX := true
+
+# Enable CONFIG_IEEE80211BE
+WIFI_FEATURE_SUPPLICANT_11BE := true
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
