@@ -22,7 +22,6 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += init.vendor.wlan.rc
-WLAN_MODULES_VENDOR += wificfrtool
 WLAN_MODULES_VENDOR += ctrlapp_dut
 ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-ss),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem
@@ -61,6 +60,9 @@ WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += android.hardware.wifi-service
 WLAN_MODULES_VENDOR += $(WPA)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+WLAN_MODULES_VENDOR += ks.recovery
+endif
 
 #Enable rc file from wpa_supplicant
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY ?= true
