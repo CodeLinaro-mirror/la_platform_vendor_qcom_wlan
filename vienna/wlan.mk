@@ -1,6 +1,18 @@
 WLAN_CHIPSET := qca_cld3
 
+ifeq ($(TARGET_SUPPORTS_WEAR_ANDROID),true)
 ${call soong_config_set,wifi,libpasn_support,true}
+else
+${call soong_config_set,wifi,libpasn_support,false}
+endif
+
+ifeq ($(TARGET_BOARD_PLATFORM),vienna)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+$(call soong_config_set_bool,wifi,wifi_recovery_available,true)
+$(call soong_config_set_bool,target_recovery,target_recovery_available,true)
+endif
+endif
+
 # WLAN wear specific defconfig
 WLAN_PROFILE := wear
 
@@ -49,6 +61,9 @@ WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += android.hardware.wifi-service
 WLAN_MODULES_VENDOR += $(WPA)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+WLAN_MODULES_VENDOR += ks.recovery
+endif
 
 #Enable rc file from wpa_supplicant
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY ?= true

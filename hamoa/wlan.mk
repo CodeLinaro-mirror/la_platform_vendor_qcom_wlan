@@ -52,7 +52,6 @@ WLAN_MODULES_VENDOR += vendor_cmd_tool
 # Setting this flag to enable HY11 bins inclusion. keep this line here as common-tools is hy11 shippable
 #$(call soong_config_set,qtiwlan,hy11,true)
 # Add binaries under this, which needs to be delivered to HY11 builds
-WLAN_MODULES_VENDOR += wifi_qos_daemon
 endif
 
 ifneq (,$(filter hwaddress,$(SANITIZE_TARGET)))
@@ -73,10 +72,6 @@ WLAN_MODULES_VENDOR += libwpa_drv_oem
 endif
 ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-hmd),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem_hmd
-endif
-ifneq ($(wildcard $(QCPATH)/wlan/noship/wifi_qos_daemon),)
-WLAN_MODULES_VENDOR += wifi_qos_daemon
-WLAN_MODULES_VENDOR += libtxpbcsv
 endif
 
 ifneq ($(wildcard $(QCPATH)/wlan/ath6kl-utils),)
