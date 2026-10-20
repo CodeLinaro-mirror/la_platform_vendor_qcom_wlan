@@ -1,3 +1,5 @@
+include $(strip $(QCPATH)/common/$(TARGET_BOARD_PLATFORM)$(TARGET_BOARD_SUFFIX)/BoardConfigVendor.mk)
+
 WLAN_CHIPSET := qca_cld3
 
 # Force chip-specific DLKM name
@@ -23,7 +25,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 
 #Include WiFi RTT service only when location is defined on the device
-ifneq ($(BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE),)
+ifneq ($(BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE), false)
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
 endif
@@ -117,3 +119,16 @@ TARGET_CAL_DATA_CLEAR := true
 ifeq "$(wildcard external/wpa_supplicant_8/src/pasn/pasn_common.c)" ""
 ${call soong_config_set,wifi,libpasn_support,false}
 endif
+
+# Enable wpa_supplicant/hostapd vendor AIDL service
+$(call soong_config_set_bool,wpa_supplicant_8,enable_vendor_aidl,true)
+
+ifneq ($(filter 17 CinnamonBun,$(PLATFORM_VERSION)),)
+$(call soong_config_set_bool,wifi,android_17_support,true)
+endif
+
+ifeq ($(findstring true,$(TARGET_FWK_SUPPORTS_FULL_VALUEADDS) $(TARGET_BOARD_AUTO)),true)
+ifndef SOONG_CONFIG_qtiwifi_automobile
+$(call soong_config_set_bool,qtiwifi,automobile,true)
+endif #SOONG_CONFIG_qtiwifi_automobile
+endif #TARGET_FWK_SUPPORTS_FULL_VALUEADDS | TARGET_BOARD_AUTO
