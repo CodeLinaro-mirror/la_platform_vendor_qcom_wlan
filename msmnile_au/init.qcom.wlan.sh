@@ -99,11 +99,12 @@ function enable_dual_wifi() {
 		"0x1103")
 		setprop ro.vendor.wlan.chip qca6490
 		setprop ro.vendor.wlan.6ghz true
+		setprop ro.vendor.wlan.secondary.iface "p2p1"
 		;;
 		"0x1107")
 		setprop ro.vendor.wlan.chip kiwi_v2
 		setprop ro.vendor.wlan.6ghz true
-		setprop ro.vendor.wlan.secondary.iface "wlan1"
+		setprop ro.vendor.wlan.secondary.iface "p2p1"
 		;;
 		*)
 		echo "Not supported device id $primary_dev"
@@ -123,11 +124,12 @@ function enable_dual_wifi() {
 		"0x1103")
 		setprop ro.vendor.wlan.chip2 qca6490
 		setprop ro.vendor.wlan.6ghz true
+		setprop ro.vendor.wlan.secondary.iface "p2p1"
 		;;
 		"0x1107")
 		setprop ro.vendor.wlan.chip2 kiwi_v2
 		setprop ro.vendor.wlan.6ghz true
-		setprop ro.vendor.wlan.secondary.iface "wlan1"
+		setprop ro.vendor.wlan.secondary.iface "p2p1"
 		;;
 		*)
 		echo "Not supported device id $secondary_dev"
