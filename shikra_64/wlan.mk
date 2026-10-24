@@ -64,6 +64,9 @@ TARGET_CAL_DATA_CLEAR := true
 #Disable Perf tuner in cnss-daemon
 TARGET_USES_NO_CNSS_DP := true
 
+#Disable cnss-daemon QMI communication with FW (platform owns BDF download)
+TARGET_USES_NO_FW_QMI_CLIENT := true
+
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.aware.interface=wifi-aware0
