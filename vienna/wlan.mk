@@ -1,6 +1,18 @@
 WLAN_CHIPSET := qca_cld3
 
+ifeq ($(TARGET_SUPPORTS_WEAR_ANDROID),true)
+${call soong_config_set,wifi,libpasn_support,true}
+else
 ${call soong_config_set,wifi,libpasn_support,false}
+endif
+
+ifeq ($(TARGET_BOARD_PLATFORM),vienna)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+$(call soong_config_set_bool,wifi,wifi_recovery_available,true)
+$(call soong_config_set_bool,target_recovery,target_recovery_available,true)
+endif
+endif
+
 # WLAN wear specific defconfig
 WLAN_PROFILE := wear
 
@@ -10,7 +22,6 @@ WPA := wpa_cli
 WLAN_MODULES_VENDOR += $(WLAN_CHIPSET)_wlan.ko
 WLAN_MODULES_VENDOR += wifilearner
 WLAN_MODULES_VENDOR += init.vendor.wlan.rc
-WLAN_MODULES_VENDOR += wificfrtool
 WLAN_MODULES_VENDOR += ctrlapp_dut
 ifneq ($(wildcard $(QCPATH)/wlan/oem/oem-ss),)
 WLAN_MODULES_VENDOR += libwpa_drv_oem
@@ -49,6 +60,9 @@ WLAN_MODULES_VENDOR += hostapd
 WLAN_MODULES_VENDOR += hostapd_cli
 WLAN_MODULES_VENDOR += android.hardware.wifi-service
 WLAN_MODULES_VENDOR += $(WPA)
+ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
+WLAN_MODULES_VENDOR += ks.recovery
+endif
 
 #Enable rc file from wpa_supplicant
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY ?= true
@@ -73,11 +87,10 @@ ifeq ($(TARGET_SUPPORT_WIFI_RECOVERY),true)
 	$(BOARD_WLAN_DIR)/vienna/WCNSS_qcom_cfg.ini:recovery/root/lib/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 endif
 
-ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
+#Product xml files to enable different interfaces support from wifi frameworks
+#Enable NAN/Aware
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
-endif
+	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml
 
 WLAN_MODULES_VENDOR += cnss2_sdio.ko
 WLAN_MODULES_VENDOR += qcn_sdio.ko

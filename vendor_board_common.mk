@@ -25,3 +25,6 @@ WIFI_FEATURE_HOSTAPD_11BE := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := //hardware/qcom/wlan/qcwcn/wpa_supplicant_8_lib:lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_PRIVATE_LIB := //hardware/qcom/wlan/qcwcn/wpa_supplicant_8_lib:lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+
+# SKIP wlan0 UP by Wifi Hal during init.
+WIFI_HAL_INIT_SKIP_PRIMARY_WLAN0_IFACE_UP := true

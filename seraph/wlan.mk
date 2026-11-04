@@ -78,6 +78,9 @@ WLAN_MODULES_VENDOR += hs20-osu-client
 #Enable WIFI AWARE FEATURE
 WIFI_HIDL_FEATURE_AWARE := true
 
+# SKIP wlan0 UP by Wifi Hal during init.
+$(call soong_config_set,wifi,wifi_hal_init_skip_primary_wlan0_iface_up,true)
+
 # Copy chip specific INI files if TARGET_WLAN_CHIP is defined
 ifneq ($(TARGET_WLAN_CHIP),)
 	PRODUCT_COPY_FILES += \

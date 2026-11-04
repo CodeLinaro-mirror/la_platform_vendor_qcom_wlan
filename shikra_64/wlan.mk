@@ -28,7 +28,8 @@ PRODUCT_COPY_FILES += \
 ifneq ($(TARGET_SUPPORTS_WEARABLES),true)
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
-	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
+	frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
+	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml
 endif
 
 PRODUCT_PACKAGES += icnss2.ko
@@ -62,6 +63,9 @@ TARGET_CAL_DATA_CLEAR := true
 
 #Disable Perf tuner in cnss-daemon
 TARGET_USES_NO_CNSS_DP := true
+
+#Disable cnss-daemon QMI communication with FW (platform owns BDF download)
+TARGET_USES_NO_FW_QMI_CLIENT := true
 
 # Enable vendor properties.
 PRODUCT_PROPERTY_OVERRIDES += \
